@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './MainPage.module.css';
 import UserInterest from '../UserInterest/UserInterest';
-import VidBg from "../../assets/BG.mp4"
 
 
 const MainPage = () => {
@@ -14,10 +13,6 @@ const MainPage = () => {
 
   return (
     <div className={styles.mainContainer}>
-        <video 
-        autoPlay
-        loop
-        className={styles.vidBackground} src={VidBg}></video>
       <h1 className={styles.mainTitle}>Welcome to My App</h1>
       <div className={styles.content}>
         {showUserInterest ? <UserInterest 

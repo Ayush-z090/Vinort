@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './UserInterest.module.css';
+import { useNavigate } from 'react-router-dom';
 
 // Programming-related icon components
 const ProgrammingIcon = () => (
@@ -97,6 +98,8 @@ const MathIcon = () => (
 
 const UserInterest = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const navigate = useNavigate()
+
 
   const educationCategories = [
     { id: 1, name: 'Programming', icon: <ProgrammingIcon /> },
@@ -130,6 +133,10 @@ const UserInterest = () => {
     const selectedNames = educationCategories
       .filter(cat => selectedCategories.includes(cat.id))
       .map(cat => cat.name);
+
+    // using localStorage to implement backend functinality as a substitute
+    localStorage.setItem("UserChoosenCategoires",JSON.stringify(selectedNames))
+    navigate("/controler")
     console.log('Selected categories:', selectedNames);
     // Handle form submission here
   };
