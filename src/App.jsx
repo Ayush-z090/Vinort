@@ -13,11 +13,11 @@ function App() {
         autoPlay
         loop
         className={styles.vidBackground} src={VidBg}></video>
-
-    <Routes>
+    <ComponentHandler/>
+    {/* <Routes>
       <Route path='/' element={<MainPage />} />
       <Route path='/controler' element={<ComponentHandler/>}/>
-    </Routes>
+    </Routes> */}
     </div>
     
   );
