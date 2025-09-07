@@ -1,0 +1,75 @@
+.Card_container{
+    width:clamp(150px, 38vw, 24rem);
+    height: clamp(130px, 32vw, 18rem) ;
+}
+
+.Thumbnail_ImgField{
+    width: 100%;
+    height: 72%;
+    position: relative;
+    border-radius: .5rem ;
+    overflow: hidden;
+    display: block;
+}
+
+.Thumbnail_ImgField img,.ImgField_Icon_usrPic img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+.ImgField_Icon_usrPic{
+    width: 2.6rem;
+    height: 2.6rem;
+    position: relative;
+}
+.ImgField_Icon_usrPic img{
+    border-radius: 50%;
+    
+}
+
+.feedDetails{
+    box-sizing: border-box;
+    padding: .5rem .4rem 0 0;
+    display: flex;
+    gap:.8rem;
+    color: white;
+    text-transform: capitalize;
+    font-family: sans-serif;
+}
+.UserDetails link{
+    font-size: 1rem;
+    padding-top:.2rem ;
+    line-height: 1.3;
+    width: fit-content;
+    
+}
+.UserDetails{
+    width: fit-content;
+}
+.UserDetails p{
+    color: grey;
+    line-height: 1.3;
+    
+}
+.UserDetails p:last-child span{
+    margin-left:.6rem ;
+}
+
+
+/* transition styles */
+
+.Thumbnail_ImgField:hover{
+    border-radius: initial;
+    
+}
+
+.UserDetails h1 + p{
+    cursor:pointer;
+}
+
+.Thumbnail_ImgField{
+    transition: border-radius 100ms ease-in-out;
+}

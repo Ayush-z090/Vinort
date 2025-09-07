@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react"
 import Styles from "./ComponentHandler.module.css"
 import {motion} from "framer-motion"
+import ToogleButton, { Recommendation } from "../../src/components/handlerComponentsPart1/Comp_Collection"
 
 
 export default function ComponentHandler(){
-    let [isTxtAreaActive,setTxtActivation] = useState(false)
+    // will track Ai-reply and Ai_assisform elemnt
+    let [isTxtAreaActive,setTxtActivation] = useState(false);
+    // will track rcommenadtionn video filed via toogle button
+    let [showRecommendationTab,setReccoamendation] = useState(false)
     return(
         <>
             <div className={Styles.component_handler}>
@@ -15,6 +19,10 @@ export default function ComponentHandler(){
                 <Ai_assistForm 
                 setActive={setTxtActivation}
                 textActive={isTxtAreaActive}/>
+                <ToogleButton isToggled={showRecommendationTab} setIsToggled={setReccoamendation}/>
+                <Recommendation
+                showRec={showRecommendationTab}
+                />
             </div>
         </>
     )
