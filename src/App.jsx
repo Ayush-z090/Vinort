@@ -14,11 +14,11 @@ function App() {
         loop
         muted
         className={styles.vidBackground} src={VidBg}></video>
-    {/* <ComponentHandler/> */}
-    <Routes>
+    <ComponentHandler/>
+    {/* <Routes>
       <Route path='/' element={<MainPage />} />
       <Route path='/controler' element={<ComponentHandler/>}/>
-    </Routes>
+    </Routes> */}
     </div>
     
   );

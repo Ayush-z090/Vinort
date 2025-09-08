@@ -4,7 +4,7 @@ import Style from "./SearchPage.module.css"
 import SeacrchQuery_videoCard from "../Cards/Card"
 
 
-export function Page_Content({maxResultNum=5}){
+export function Page_Content({maxResultNum=15}){
 
 
     let seachQueryRandom = Math.floor(Math.random() * JSON.parse(localStorage.getItem("UserChoosenCategoires")).length)
@@ -12,7 +12,7 @@ export function Page_Content({maxResultNum=5}){
     let [SearchData,setData]= useState([]);
     let query= JSON.parse(localStorage.getItem("UserChoosenCategoires"))[seachQueryRandom]
     let API_KEY = import.meta.env.VITE_YT_API_KEY
-    let API_URl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResultNum}&q=${query}&key=${API_KEY}`
+    let API_URl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=rating&type=video&maxResults=${maxResultNum}&q=${query}&key=${API_KEY}`
 
     let FETCH_data =async ()=>{
         let FetchData = await fetch(API_URl)

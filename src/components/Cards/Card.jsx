@@ -1,6 +1,7 @@
 import {  Link } from "react-router-dom"
 import Styles from "../Cards/Card.module.css"
 import { useState,useEffect } from "react"
+import { motion } from "framer-motion"
 
 
 
@@ -26,12 +27,17 @@ export default function SeacrchQuery_videoCard({dataObject,action}){
     useEffect(()=>{
         FetchUserData()
     },[])
-
     return<>
-        <div
-        onClick={action ? action : ()=>{}}
+        <motion.div
+        onClick={action ? action : ()=>{""}}
         className={Styles.Card_container} 
         >
+
+            <motion.div className={Styles.Popup}>
+                    <DownPopUp dataObject={dataObject} UserAvatar={UserAvatar}/>
+                    <span>{getTimeAgo(dataObject.snippet.publishedAt)}</span>
+
+            </motion.div>
             <Link 
             to={action ? "":`/video/${dataObject?.id.videoId}`} 
             className={Styles.Thumbnail_ImgField} 
@@ -42,112 +48,43 @@ export default function SeacrchQuery_videoCard({dataObject,action}){
             <div 
             className={Styles.feedDetails}
             >
-                <Link to={`/${dataObject.snippet.channelId}`} className={Styles.ImgField_Icon_usrPic}>
-                    <img src={UserAvatar?.high?.url} alt="" />
-                </Link>
                 <Link
                 style={{
-                    textDecoration:"none"
                 }}
                 to={action ? "":`/video/${dataObject.snippet.categoryId}/${dataObject.id}`} 
-                className={Styles.UserDetails}>
-                    <div 
-                    style={{
-                        textDecoration:"none"
-                    }}
-                    >{dataObject.snippet.title}</div>
-                    <p
-                    style={{
-                        fontSize:".8rem",
-                        padding:".3rem 0 0 0"
-                    }}
-                    >{dataObject.snippet.channelTitle}</p>
-                    <p style={{fontSize:".92rem"}}>{formatViewCount(dataObject.statistics?.viewCount)} <span>{getTimeAgo(dataObject.snippet.publishedAt)}</span></p>
+                className={Styles.VideoTitle}>
+                    
+                    {dataObject.snippet.title}
                 </Link>
             </div>
-        </div>
+        </motion.div>
     </>
 }
 
-function SeacrchQuery_ChannelCard({dataObject,action}){
-    
-    let [UserAvatar,setAvatar]= useState([])
-    let API_KEY = import.meta.env.VITE_YT_API_KEY
-    let API_URL = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${dataObject?.snippet?.channelId}&key=${API_KEY}`
 
+function TopPopUp({dataObject}){
+    return(
+        <>
+            <p style={{fontSize:".92rem"}}>{formatViewCount(dataObject.statistics?.viewCount)}</p>
 
+        </>
+    )
+}
 
-    let FetchUserData = async ()=>{
-        try{
-            let Fetch_Data = await fetch(API_URL)
-            let Data = await Fetch_Data.json()
-            setAvatar(Data.items[0].snippet.thumbnails)
-        }catch(e){
-            console.log(e)
-        }
-    }
-
-    useEffect(()=>{
-        FetchUserData()
-    },[])
-
-    return<>
-        <div
-        onClick={action ? action : ()=>{}}
-        className={Styles.Card_container} 
+function DownPopUp({dataObject,UserAvatar}){
+    return(
+        <>
+        <Link to={`/${dataObject.snippet.channelId}`} className={Styles.ImgField_Icon_usrPic}>
+            <img src={UserAvatar?.high?.url} alt="" />
+        </Link>
+        <p
         style={{
-            display:"flex",
-            width:"100%",
-            height:"20rem",
-            margin:"1rem 0"
+            fontSize:".8rem",
+            padding:".3rem 0 0 0"
         }}
-        >
-            <Link 
-            to={action ? "":`/video/${dataObject?.id.videoId}`} 
-            className={Styles.Thumbnail_ImgField} 
-            aria-label="thumnal-video"
-            style={{
-                width:"50%",
-                height:"100%",
-                
-            }}
-            >
-                <img src={dataObject.snippet.thumbnails.high.url} alt="" />
-            </Link>
-            <div 
-            className={Styles.feedDetails}
-            style={{
-                width:"50%",
-                flexDirection:"column-reverse",
-                justifyContent:"flex-end"
-            }}
-            >
-                <Link to={`/${dataObject.snippet.channelId}`} className={Styles.ImgField_Icon_usrPic}>
-                    <img src={UserAvatar?.high?.url} alt="" />
-                </Link>
-                <Link
-                style={{
-                    textDecoration:"none"
-                }}
-                to={action ? "":`/video/${dataObject.snippet.categoryId}/${dataObject.id}`} 
-                className={Styles.UserDetails}>
-                    <div 
-                    style={{
-                        color:"white",
-                        textDecoration:"none"
-                    }}
-                    >{dataObject.snippet.title}</div>
-                    <p
-                    style={{
-                        fontSize:".8rem",
-                        padding:".3rem 0 0 0"
-                    }}
-                    >{dataObject.snippet.channelTitle}</p>
-                    <p style={{fontSize:".92rem"}}>{formatViewCount(dataObject.statistics?.viewCount)} <span>{getTimeAgo(dataObject.snippet.publishedAt)}</span></p>
-                </Link>
-            </div>
-        </div>
-    </>
+        >{dataObject.snippet.channelTitle}</p>
+        </>
+    )
 }
 
 

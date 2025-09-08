@@ -5,7 +5,8 @@
     overflow:scroll;
     width: 100%;
     display: flex;
-    gap: 2rem;
+    column-gap: 9rem;
+    row-gap: 1.8rem;
     flex-wrap: wrap;
     justify-content: center;
     

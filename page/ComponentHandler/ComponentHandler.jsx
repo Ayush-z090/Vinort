@@ -9,6 +9,8 @@ export default function ComponentHandler(){
     let [isTxtAreaActive,setTxtActivation] = useState(false);
     // will track rcommenadtionn video filed via toogle button
     let [showRecommendationTab,setReccoamendation] = useState(false)
+    // will track of the situaiton when user want to search for the video 
+    let [IsVideoSearch,setSearchVideo] = useState()
     return(
         <>
             <div className={Styles.component_handler}>
@@ -17,6 +19,8 @@ export default function ComponentHandler(){
                 textActive={isTxtAreaActive}
                 />
                 <Ai_assistForm 
+                IsVideoSearch={IsVideoSearch}
+                setVideoSearch={setSearchVideo}
                 setActive={setTxtActivation}
                 textActive={isTxtAreaActive}/>
                 <ToogleButton isToggled={showRecommendationTab} setIsToggled={setReccoamendation}/>
@@ -29,7 +33,7 @@ export default function ComponentHandler(){
 }
 
 
-function Ai_assistForm ({textActive,setActive}){
+function Ai_assistForm ({textActive,setActive,IsVideoSearch,setVideoSearch}){
     
     return(
         <>
