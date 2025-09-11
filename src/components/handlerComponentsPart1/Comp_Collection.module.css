@@ -65,6 +65,37 @@
     display: none;
 }
 
+.search_Cards_container{
+    height: 70vh;
+    padding: 1.6rem 0;
+    margin: 0 auto;
+  /* The fade effect */
+  -webkit-mask: linear-gradient(to top,
+  transparent,      /* fade out at left edge */
+  rgba(0,0,0,1) 50%, /* fully visible near center */
+  rgba(0,0,0,1) 50%, /* fully visible near center */
+  transparent       /* fade out at right edge */
+);
+-webkit-mask-repeat: no-repeat;
+-webkit-mask-size: 100% 100%;
+
+mask: linear-gradient(to top,
+  transparent,
+  rgba(0,0,0,1) 20%,
+  rgba(0,0,0,1) 80%,
+  transparent
+);
+mask-repeat: no-repeat;
+mask-size: 100% 100%;
+}
+
+.play_Element{
+    position: relative;
+    width: 65%;
+    height: 80vh;
+}
+
+
 
 /* Toggle Label */
 .toggleLabel {

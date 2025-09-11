@@ -10,7 +10,7 @@ export default function SeacrchQuery_videoCard({dataObject,action}){
     let [UserAvatar,setAvatar]= useState([])
     let API_KEY = import.meta.env.VITE_YT_API_KEY
     let API_URL = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${dataObject?.snippet?.channelId}&key=${API_KEY}`
-
+    let [isHover,setHoverState] = useState(false)
 
 
     let FetchUserData = async ()=>{
@@ -29,14 +29,25 @@ export default function SeacrchQuery_videoCard({dataObject,action}){
     },[])
     return<>
         <motion.div
+        onHoverStart={()=>setHoverState(true)}
+        onHoverEnd={()=> setHoverState(false)}
         onClick={action ? action : ()=>{""}}
-        className={Styles.Card_container} 
+        className={Styles.Card_container}
+        initial={{transform:"scale(1.1)"}}
+        animate={{transform: isHover ? "scale(.9)" : undefined , transition:{duration:.5} }}
         >
 
-            <motion.div className={Styles.Popup}>
+            <motion.div
+            initial={{right:"55%"}}
+            animate={
+                {
+                    right:isHover ? "97%" : undefined,
+                    transition:{duration:.5}
+                }
+            }
+            className={Styles.Popup}>
                     <DownPopUp dataObject={dataObject} UserAvatar={UserAvatar}/>
                     <span>{getTimeAgo(dataObject.snippet.publishedAt)}</span>
-
             </motion.div>
             <Link 
             to={action ? "":`/video/${dataObject?.id.videoId}`} 

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import Styles from "./ComponentHandler.module.css"
 import {motion} from "framer-motion"
-import ToogleButton, { Recommendation } from "../../src/components/handlerComponentsPart1/Comp_Collection"
+import ToogleButton, { Recommendation, UserSearchCards, VideoStreamer } from "../../src/components/handlerComponentsPart1/Comp_Collection"
+import { Page_Content } from "../../src/components/SearchPage/SearchPage";
 
 
 export default function ComponentHandler(){
@@ -10,23 +11,69 @@ export default function ComponentHandler(){
     // will track rcommenadtionn video filed via toogle button
     let [showRecommendationTab,setReccoamendation] = useState(false)
     // will track of the situaiton when user want to search for the video 
-    let [IsVideoSearch,setSearchVideo] = useState()
+    let [IsVideoSearch,setSearchVideo] = useState(false) // change it to set searchpage ViewPort
+    // will track when video is streaming
+    let [videoStreamState , setStreamState] = useState(true); // change it to set VideoStream viewPort
+    // will track the userSearch value..
+    let [SearchQuery,setSearchQuery] = useState("after effects")
+    
     return(
         <>
-            <div className={Styles.component_handler}>
+            <motion.div 
+            animate={
+                IsVideoSearch ? {
+                paddingTop: "10vh" ,
+                display:"flex",
+                gap:"2rem",
+                flexDirection:"column",
+                backdropFilter: "blur(6px) brightness(0.5)"
+                }:
+                videoStreamState ? {paddingTop : "6vh",backdropFilter: "blur(6px) brightness(0.5)"} : {}
+            }
+            className={Styles.component_handler}>
+
+                
+                {videoStreamState ? <VideoDisplay Query={SearchQuery}/> : ""}
                 <Ai_Reply
                 setActive={setTxtActivation}
                 textActive={isTxtAreaActive}
                 />
-                <Ai_assistForm 
+
+                {IsVideoSearch ? <UserSearchCards userSearhQuery={SearchQuery}/> : ""}
+
+                {videoStreamState ? "" :<Ai_assistForm 
                 IsVideoSearch={IsVideoSearch}
                 setVideoSearch={setSearchVideo}
                 setActive={setTxtActivation}
-                textActive={isTxtAreaActive}/>
-                <ToogleButton isToggled={showRecommendationTab} setIsToggled={setReccoamendation}/>
+                textActive={isTxtAreaActive}/>}
+
+               { IsVideoSearch || videoStreamState ? "" : <ToogleButton isToggled={showRecommendationTab} setIsToggled={setReccoamendation}/>}
+
                 <Recommendation
                 showRec={showRecommendationTab}
                 />
+            </motion.div>
+        </>
+    )
+}
+
+function VideoDisplay({Query}){
+    return(
+        <>
+            <div className={Styles.Display_stream}>
+                <VideoStreamer/>
+                <Page_Content 
+                maxResultNum={10} 
+                sty={
+                        {
+                            width: "32%",
+                            padding: "1rem clamp(1rem, 7vw, 10rem)",
+                            gap: "3rem",
+                            height:"96vh"
+                        }
+                    }
+                searchValue={Query}/>
+                
             </div>
         </>
     )
@@ -97,3 +144,4 @@ function getLineCount(el) {
     const height = el.getBoundingClientRect().height;
     return Math.round(height / lineHeight);
   }
+

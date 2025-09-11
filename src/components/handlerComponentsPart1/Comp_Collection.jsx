@@ -53,5 +53,38 @@ function Recommendation({showRec,setReccomand}){
     )
 }
 
+function UserSearchCards({userSearhQuery = "python",ParentSty={},childSty={}}){
+    return(
+        <>
+            <div className={Styles.search_Cards_container} style={ParentSty}>
+                <Page_Content maxResultNum={5} searchValue={userSearhQuery}/>
+            </div>
+        </>
+    )
+}
 
-export {Recommendation}
+
+
+function VideoStreamer({videoId,sty={}}){
+    return(
+        <>
+            <div 
+            style={sty}
+                className={Styles.play_Element}>
+                    <iframe 
+                    style={{
+                        position:"absolute",
+                        width:"100%",
+                        height:"100%",
+                        top:0,
+                        left:0,
+                        objectFit:"cover"
+                    }}
+                    src={`https://www.youtube.com/embed/${videoId}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+
+        </>
+    )
+}
+
+export {Recommendation,UserSearchCards,VideoStreamer}

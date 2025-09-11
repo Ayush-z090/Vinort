@@ -36,9 +36,7 @@
     padding: .5rem .4rem 0 0;
     display: flex;
     gap:.8rem;
-    color: white;
-    text-transform: capitalize;
-    font-family: sans-serif;
+    height: 28%;
 }
 .VideoTitle {
     text-decoration: none;
@@ -47,18 +45,18 @@
     font-family: math;
     font-size: 17px;
     text-decoration:none;
-    color: var(--color-text-02-);
+    color: var(--color-text-);
     line-height: 1.2;
+    padding: .6rem 0 ;
 }
     
 
 .Popup{
     position: absolute;
     top: 0;
-    right: 97%;
     letter-spacing: .9px;
     line-height: 1.2;
-    width: 7rem;
+    min-width: 7rem;
     background: var(--color-text-02-);
     font-size: 1rem;
     border-radius: .5rem;

@@ -4,13 +4,13 @@ import Style from "./SearchPage.module.css"
 import SeacrchQuery_videoCard from "../Cards/Card"
 
 
-export function Page_Content({maxResultNum=15}){
+export function Page_Content({maxResultNum=15,searchValue = undefined,sty={}}){
 
 
     let seachQueryRandom = Math.floor(Math.random() * JSON.parse(localStorage.getItem("UserChoosenCategoires")).length)
 
     let [SearchData,setData]= useState([]);
-    let query= JSON.parse(localStorage.getItem("UserChoosenCategoires"))[seachQueryRandom]
+    let query=searchValue ? searchValue : JSON.parse(localStorage.getItem("UserChoosenCategoires"))[seachQueryRandom]
     let API_KEY = import.meta.env.VITE_YT_API_KEY
     let API_URl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=rating&type=video&maxResults=${maxResultNum}&q=${query}&key=${API_KEY}`
 
@@ -27,7 +27,7 @@ export function Page_Content({maxResultNum=15}){
 
     return(
         <>
-        <div className={Style.SearchPage}>
+        <div className={Style.SearchPage} style={sty}>
             {SearchData?.map(cardData =>cardType(cardData))}
         </div>
         </>

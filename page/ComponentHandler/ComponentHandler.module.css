@@ -88,3 +88,8 @@
 .ai_reply p::-webkit-scrollbar{
     display: none;
 }
+
+.Display_stream{
+    display: flex;
+    justify-content: center;
+}
