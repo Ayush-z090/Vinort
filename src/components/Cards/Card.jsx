@@ -1,12 +1,13 @@
 import {  Link } from "react-router-dom"
 import Styles from "../Cards/Card.module.css"
-import { useState,useEffect } from "react"
+import { useState,useEffect,useContext } from "react"
 import { motion } from "framer-motion"
+import { AppContext } from "../../App"
 
 
+export default function SeacrchQuery_videoCard({dataObject}){
 
-export default function SeacrchQuery_videoCard({dataObject,action}){
-    
+    const { setSelectedId,setStreamState,IsVideoSearch,setSearchVideo,videoStreamState } = useContext(AppContext);
     let [UserAvatar,setAvatar]= useState([])
     let API_KEY = import.meta.env.VITE_YT_API_KEY
     let API_URL = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${dataObject?.snippet?.channelId}&key=${API_KEY}`
@@ -17,7 +18,7 @@ export default function SeacrchQuery_videoCard({dataObject,action}){
         try{
             let Fetch_Data = await fetch(API_URL)
             let Data = await Fetch_Data.json()
-            setAvatar(Data.items[0].snippet.thumbnails)
+            Data?.items ? setAvatar(Data.items[0].snippet.thumbnails) : ""
             
         }catch(e){
             console.log(e)
@@ -31,7 +32,21 @@ export default function SeacrchQuery_videoCard({dataObject,action}){
         <motion.div
         onHoverStart={()=>setHoverState(true)}
         onHoverEnd={()=> setHoverState(false)}
-        onClick={action ? action : ()=>{""}}
+        onClick={
+            ()=>
+                {
+                    setSelectedId(dataObject?.id.videoId);
+                    if(IsVideoSearch)
+                        {
+                            setSearchVideo(false);
+                            setStreamState(true);
+                        }
+                    // else if(videoStreamState){
+                    //     setSelectedId(dataObject?.id.videoId);
+                    // }
+                
+                }
+            }
         className={Styles.Card_container}
         initial={{transform:"scale(1.1)"}}
         animate={{transform: isHover ? "scale(.9)" : undefined , transition:{duration:.5} }}
@@ -50,7 +65,7 @@ export default function SeacrchQuery_videoCard({dataObject,action}){
                     <span>{getTimeAgo(dataObject.snippet.publishedAt)}</span>
             </motion.div>
             <Link 
-            to={action ? "":`/video/${dataObject?.id.videoId}`} 
+            // to={action ? "":`/video/${dataObject?.id.videoId}`} 
             className={Styles.Thumbnail_ImgField} 
             aria-label="thumnal-video"
             >
@@ -62,7 +77,7 @@ export default function SeacrchQuery_videoCard({dataObject,action}){
                 <Link
                 style={{
                 }}
-                to={action ? "":`/video/${dataObject.snippet.categoryId}/${dataObject.id}`} 
+                // to={action ? "":`/video/${dataObject.snippet.categoryId}/${dataObject.id}`} 
                 className={Styles.VideoTitle}>
                     
                     {dataObject.snippet.title}

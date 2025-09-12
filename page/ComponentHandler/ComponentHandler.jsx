@@ -1,21 +1,25 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import Styles from "./ComponentHandler.module.css"
 import {motion} from "framer-motion"
 import ToogleButton, { Recommendation, UserSearchCards, VideoStreamer } from "../../src/components/handlerComponentsPart1/Comp_Collection"
 import { Page_Content } from "../../src/components/SearchPage/SearchPage";
+import { AppContext } from "../../src/App.jsx"
 
 
 export default function ComponentHandler(){
-    // will track Ai-reply and Ai_assisform elemnt
-    let [isTxtAreaActive,setTxtActivation] = useState(false);
-    // will track rcommenadtionn video filed via toogle button
-    let [showRecommendationTab,setReccoamendation] = useState(false)
-    // will track of the situaiton when user want to search for the video 
-    let [IsVideoSearch,setSearchVideo] = useState(false) // change it to set searchpage ViewPort
-    // will track when video is streaming
-    let [videoStreamState , setStreamState] = useState(true); // change it to set VideoStream viewPort
-    // will track the userSearch value..
-    let [SearchQuery,setSearchQuery] = useState("after effects")
+    // Get all state variables and setters from context
+    const {
+        isTxtAreaActive,
+        setTxtActivation,
+        showRecommendationTab,
+        setReccoamendation,
+        IsVideoSearch,
+        setSearchVideo,
+        videoStreamState,
+        setStreamState,
+        SearchQuery,
+        setSearchQuery
+    } = useContext(AppContext);
     
     return(
         <>
@@ -33,35 +37,28 @@ export default function ComponentHandler(){
             className={Styles.component_handler}>
 
                 
-                {videoStreamState ? <VideoDisplay Query={SearchQuery}/> : ""}
-                <Ai_Reply
-                setActive={setTxtActivation}
-                textActive={isTxtAreaActive}
-                />
+                {videoStreamState ? <VideoDisplay/> : ""}
+                <Ai_Reply/>
 
-                {IsVideoSearch ? <UserSearchCards userSearhQuery={SearchQuery}/> : ""}
+                {IsVideoSearch ? <UserSearchCards/> : ""}
 
-                {videoStreamState ? "" :<Ai_assistForm 
-                IsVideoSearch={IsVideoSearch}
-                setVideoSearch={setSearchVideo}
-                setActive={setTxtActivation}
-                textActive={isTxtAreaActive}/>}
+                {videoStreamState ? "" :<Ai_assistForm/>}
 
-               { IsVideoSearch || videoStreamState ? "" : <ToogleButton isToggled={showRecommendationTab} setIsToggled={setReccoamendation}/>}
+               { IsVideoSearch || videoStreamState ? "" : <ToogleButton/>}
 
-                <Recommendation
-                showRec={showRecommendationTab}
-                />
+                <Recommendation/>
             </motion.div>
         </>
     )
 }
 
-function VideoDisplay({Query}){
+function VideoDisplay(){
+    const { SearchQuery,SelectedVideoStreamId } = useContext(AppContext);
+    
     return(
         <>
             <div className={Styles.Display_stream}>
-                <VideoStreamer/>
+                <VideoStreamer videoId={SelectedVideoStreamId}/>
                 <Page_Content 
                 maxResultNum={10} 
                 sty={
@@ -72,7 +69,7 @@ function VideoDisplay({Query}){
                             height:"96vh"
                         }
                     }
-                searchValue={Query}/>
+                searchValue={SearchQuery}/>
                 
             </div>
         </>
@@ -80,14 +77,15 @@ function VideoDisplay({Query}){
 }
 
 
-function Ai_assistForm ({textActive,setActive,IsVideoSearch,setVideoSearch}){
+function Ai_assistForm(){
+    const { isTxtAreaActive, setTxtActivation, IsVideoSearch, setSearchVideo } = useContext(AppContext);
     
     return(
         <>
             <motion.form
             className={Styles.form}>
                 <motion.textarea
-                onClick={()=> setActive(!textActive)}
+                onClick={()=> setTxtActivation(!isTxtAreaActive)}
                 whileFocus={
                     {
                      height:"4rem"
@@ -103,8 +101,8 @@ function Ai_assistForm ({textActive,setActive,IsVideoSearch,setVideoSearch}){
     )
 }
 
-function Ai_Reply({textActive,setActive}){
-
+function Ai_Reply(){
+    const { isTxtAreaActive } = useContext(AppContext);
     let [overflow_condition,setOverflow] = useState(false)
     useEffect(()=>{
         let num  = getLineCount(document.getElementById("test"))
@@ -118,7 +116,7 @@ function Ai_Reply({textActive,setActive}){
             initial={{}}
             animate={
                 {
-                    top:textActive ? "-2%" : undefined,
+                    top:isTxtAreaActive ? "-2%" : undefined,
                 }
             }
             className={Styles.ai_reply}>
