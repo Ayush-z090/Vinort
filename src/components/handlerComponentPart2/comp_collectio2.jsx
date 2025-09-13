@@ -74,7 +74,7 @@ export default function DetailViewClickCard(){
     }
     useEffect(()=>{
         FetchFunction()
-    },[])
+    },[SelectedVideoStreamId])
     return(
         <>
             <div className={Styles.CardBody}>

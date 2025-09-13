@@ -15,9 +15,9 @@ function App() {
   // will track rcommenadtionn video filed via toogle button
   const [showRecommendationTab, setReccoamendation] = useState(false);
   // will track of the situaiton when user want to search for the video 
-  const [IsVideoSearch, setSearchVideo] = useState(false); // change it to set searchpage ViewPort
+  const [IsVideoSearch, setSearchVideo] = useState(true); // change it to set searchpage ViewPort
   // will track when video is streaming
-  const [videoStreamState, setStreamState] = useState(true); // change it to set VideoStream viewPort
+  const [videoStreamState, setStreamState] = useState(false); // change it to set VideoStream viewPort
   // will track the userSearch value..
   const [SearchQuery, setSearchQuery] = useState("after effects");
   const [SelectedVideoStreamId , setSelectedId] = useState(undefined)

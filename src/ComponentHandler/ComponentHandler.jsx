@@ -61,9 +61,9 @@ function VideoDisplay(){
         <>
             <div className={Styles.Display_stream}>
                 <div className={Styles.videoPart}>
-                    <VideoStreamer videoId={SelectedVideoStreamId}/>
+                    <VideoStreamer/>
                     <div className={Styles.VideosFunctions}>
-                        <DetailViewClickCard/>
+                        <Vidfunction/>
                         <Ai_assistForm sty={{"margin":0}}/>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ function VideoDisplay(){
                             height:"96vh"
                         }
                     }
-                searchValue={SearchQuery}/>
+                />
 
                 </div>
             </div>
@@ -87,6 +87,17 @@ function VideoDisplay(){
     )
 }
 
+function Vidfunction(){
+
+    return(
+        <>
+            <div className={Styles.FuncionButtons}>
+                <DetailViewClickCard/>
+
+            </div>
+        </>
+    )
+}
 
 function Ai_assistForm({sty={}}){
     const { isTxtAreaActive, setTxtActivation, IsVideoSearch, setSearchVideo } = useContext(AppContext);

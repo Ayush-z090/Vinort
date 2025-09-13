@@ -69,7 +69,9 @@ function UserSearchCards({ParentSty={},childSty={}}){
 }
 
 
-function VideoStreamer({videoId,sty={}}){
+function VideoStreamer({sty={}}){
+    const { SelectedVideoStreamId } = useContext(AppContext);
+
     return(
         <>
             <div 
@@ -84,7 +86,7 @@ function VideoStreamer({videoId,sty={}}){
                         left:0,
                         objectFit:"cover"
                     }}
-                    src={`https://www.youtube.com/embed/${videoId}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    src={`https://www.youtube.com/embed/${SelectedVideoStreamId}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
 
         </>

@@ -95,13 +95,15 @@ const dummySearchData = [
 
 
 
-export function Page_Content({maxResultNum=15,searchValue = undefined,sty={}}){
+export function Page_Content({maxResultNum=15,sty={}}){
     const { SearchQuery } = useContext(AppContext);
 
     let seachQueryRandom = Math.floor(Math.random() * JSON.parse(localStorage.getItem("UserChoosenCategoires")).length)
 
     let [SearchData,setData]= useState([]);
-    let query=searchValue ? searchValue : (SearchQuery || JSON.parse(localStorage.getItem("UserChoosenCategoires"))[seachQueryRandom])
+    
+    let query=SearchQuery ? SearchQuery : JSON.parse(localStorage.getItem("UserChoosenCategoires"))[seachQueryRandom]
+
     let API_KEY = import.meta.env.VITE_YT_API_KEY
     let API_URl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=rating&type=video&maxResults=${maxResultNum}&q=${query}&key=${API_KEY}`
 
