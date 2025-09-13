@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import MainPage from './components/Mainpage/MainPage';
 import styles from './App.module.css';
-import ComponentHandler from '../page/ComponentHandler/ComponentHandler';
+import ComponentHandler from './ComponentHandler/ComponentHandler';
 import VidBg from "./assets/BG.mp4"
 
 // Create context for sharing state across components
@@ -17,7 +17,7 @@ function App() {
   // will track of the situaiton when user want to search for the video 
   const [IsVideoSearch, setSearchVideo] = useState(false); // change it to set searchpage ViewPort
   // will track when video is streaming
-  const [videoStreamState, setStreamState] = useState(false); // change it to set VideoStream viewPort
+  const [videoStreamState, setStreamState] = useState(true); // change it to set VideoStream viewPort
   // will track the userSearch value..
   const [SearchQuery, setSearchQuery] = useState("after effects");
   const [SelectedVideoStreamId , setSelectedId] = useState(undefined)

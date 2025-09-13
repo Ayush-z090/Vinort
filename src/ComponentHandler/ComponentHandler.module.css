@@ -93,3 +93,26 @@
     display: flex;
     justify-content: center;
 }
+
+.videoPart{
+    width: 65%;
+}
+
+.VideosFunctions{
+    height: 12vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+.search_Body{
+    width: 32%;
+}
+.search_Body h1{
+    font-family: monospace;
+    text-align: center;
+    padding: .5rem 0 1rem 0;
+    text-transform: capitalize;
+    color: var(--color-text-);
+}

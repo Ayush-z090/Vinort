@@ -88,15 +88,6 @@ export default function SeacrchQuery_videoCard({dataObject}){
 }
 
 
-function TopPopUp({dataObject}){
-    return(
-        <>
-            <p style={{fontSize:".92rem"}}>{formatViewCount(dataObject.statistics?.viewCount)}</p>
-
-        </>
-    )
-}
-
 function DownPopUp({dataObject,UserAvatar}){
     return(
         <>
@@ -155,3 +146,4 @@ function getTimeAgo(isoDate) {
     return `${years} years ago`;
 }
 
+export {formatViewCount,getTimeAgo}

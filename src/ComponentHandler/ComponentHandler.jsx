@@ -1,9 +1,10 @@
 import { useEffect, useState, useContext } from "react"
 import Styles from "./ComponentHandler.module.css"
 import {motion} from "framer-motion"
-import ToogleButton, { Recommendation, UserSearchCards, VideoStreamer } from "../../src/components/handlerComponentsPart1/Comp_Collection"
-import { Page_Content } from "../../src/components/SearchPage/SearchPage";
-import { AppContext } from "../../src/App.jsx"
+import ToogleButton, { Recommendation, UserSearchCards, VideoStreamer } from "../components/handlerComponentsPart1/Comp_Collection"
+import { Page_Content } from "../components/SearchPage/SearchPage";
+import { AppContext } from "../App.jsx"
+import DetailViewClickCard from "../components/handlerComponentPart2/comp_collectio2.jsx";
 
 
 export default function ComponentHandler(){
@@ -32,12 +33,13 @@ export default function ComponentHandler(){
                 flexDirection:"column",
                 backdropFilter: "blur(6px) brightness(0.5)"
                 }:
-                videoStreamState ? {paddingTop : "6vh",backdropFilter: "blur(6px) brightness(0.5)"} : {}
+                videoStreamState ? {paddingTop : "5vh",backdropFilter: "blur(6px) brightness(0.5)"} : {}
             }
             className={Styles.component_handler}>
 
                 
                 {videoStreamState ? <VideoDisplay/> : ""}
+
                 <Ai_Reply/>
 
                 {IsVideoSearch ? <UserSearchCards/> : ""}
@@ -58,31 +60,41 @@ function VideoDisplay(){
     return(
         <>
             <div className={Styles.Display_stream}>
-                <VideoStreamer videoId={SelectedVideoStreamId}/>
+                <div className={Styles.videoPart}>
+                    <VideoStreamer videoId={SelectedVideoStreamId}/>
+                    <div className={Styles.VideosFunctions}>
+                        <DetailViewClickCard/>
+                        <Ai_assistForm sty={{"margin":0}}/>
+                    </div>
+                </div>
+                <div className={Styles.search_Body}>
+                    <h1>search result</h1>
                 <Page_Content 
                 maxResultNum={10} 
                 sty={
                         {
-                            width: "32%",
+                            width: "100%",
                             padding: "1rem clamp(1rem, 7vw, 10rem)",
                             gap: "3rem",
                             height:"96vh"
                         }
                     }
                 searchValue={SearchQuery}/>
-                
+
+                </div>
             </div>
         </>
     )
 }
 
 
-function Ai_assistForm(){
+function Ai_assistForm({sty={}}){
     const { isTxtAreaActive, setTxtActivation, IsVideoSearch, setSearchVideo } = useContext(AppContext);
     
     return(
         <>
             <motion.form
+            style={sty}
             className={Styles.form}>
                 <motion.textarea
                 onClick={()=> setTxtActivation(!isTxtAreaActive)}
