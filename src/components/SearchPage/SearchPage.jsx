@@ -108,10 +108,17 @@ export function Page_Content({maxResultNum=15,sty={}}){
     let API_URl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=rating&type=video&maxResults=${maxResultNum}&q=${query}&key=${API_KEY}`
 
     let FETCH_data =async ()=>{
-        let FetchData = await fetch(API_URl)
-        let DATA = await FetchData.json()
-        DATA?.items ? setData(DATA.items) : setData(dummySearchData)
-        console.log(DATA.items)
+        try{
+            let FetchData = await fetch(API_URl)
+            let DATA = await FetchData.json()
+            if (!DATA.items && DATA.error.code === 403){
+                setData(dummySearchData)
+                throw new Error("yt api limit reach")
+            }
+            setData(DATA.items)
+        }catch(err){
+            console.log(`unable to reload \nError: ${err}`)
+        }
     }
 
     useEffect(()=>{

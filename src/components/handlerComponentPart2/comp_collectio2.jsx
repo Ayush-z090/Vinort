@@ -56,28 +56,13 @@ return (
 )
 }
 
-export default function DetailViewClickCard(){
+export default function DetailViewClickCard({setState,state}){
 
-    let {SelectedVideoStreamId} = useContext(AppContext)
-    let [fetchData,setData] = useState([])
-    let API_KEY = import.meta.env.VITE_YT_API_KEY
-    let API_URL = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${SelectedVideoStreamId}&key=${API_KEY}`
-
-    let FetchFunction = async ()=>{
-        try{
-            let FETCHData = await fetch(API_URL);
-            let data = await FETCHData.json();
-            console.log(data)
-        }catch(e){
-            alert(`unable to fetch the data\nerror:\t${e}`)
-        }
-    }
-    useEffect(()=>{
-        FetchFunction()
-    },[SelectedVideoStreamId])
     return(
         <>
-            <div className={Styles.CardBody}>
+            <div 
+            onClick={()=>setState(!state)}
+            className={Styles.CardBody}>
                 {<SVGInfoIcon/>}
                 about
             </div>
@@ -85,15 +70,50 @@ export default function DetailViewClickCard(){
     )
 }
 
-function E_Dis({content,views,date}){
+function E_Dis({content}){
+    
+    // Function to detect and convert URLs to clickable links
+    const formatDescription = (text) => {
+        if (!text) return text;
+        
+        // Regular expression to match URLs
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        
+        // Split text by URLs and create clickable links
+        const parts = text.split(urlRegex);
+        
+        return parts.map((part, index) => {
+            if (urlRegex.test(part)) {
+                return (
+                    <a
+                        key={index}
+                        href={part}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            color: "#3ea6ff",
+                            textDecoration: "underline",
+                            cursor: "pointer"
+                        }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(part, '_blank');
+                        }}
+                    >
+                        {part}
+                    </a>
+                );
+            }
+            return part;
+        });
+    };
 
-    let [isExpand,setExpand]= useState(false)
     return(
         <>
-        <div className="DiscriptionBox" 
+        <motion.div className="DiscriptionBox" 
         style={{
             width:"100%",
-            height: isExpand ? "fit-content": "10rem",
+            height:"fit-content",
             backgroundColor:"var(--yt-spec-menu-background)",
             "fontFamily":"sans-serif",
             color:"white",
@@ -107,7 +127,7 @@ function E_Dis({content,views,date}){
             position:"relative",
             overflow:"hidden"
         }}>
-            <div className="Info_text"
+            {/* <div className="Info_text"
             style={{
                 display:"flex",
                 gap:"1rem"
@@ -115,7 +135,7 @@ function E_Dis({content,views,date}){
             >
                 <p>{views}</p>
                 <p>{getTimeAgo(date)}</p>
-            </div>
+            </div> */}
             <div className="discription_content">
                 <p
                 style={{
@@ -123,24 +143,19 @@ function E_Dis({content,views,date}){
                     fontWeight:"300"
                 }}
                 >
-
-                    {content}
+                    {content ? formatDescription(content) : (<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nulla, iure ut, fugiat dolor culpa rem ipsum, minima maxime eaque repellendus laudantium et ipsa odio voluptas error? Corrupti, reprehenderit qui!
+Recusandae omnis fuga tenetur sapiente! Itaque modi voluptatum, deserunt numquam quis in cupiditate saepe atque, error nihil qui. Dicta nihil iusto assumenda incidunt temporibus veritatis consequatur, veniam fugiat officia quae?
+Alias illum vel unde maiores magnam asperiores odio accusamus, autem provident accusantium sapiente deserunt distinctio dolor? Labore, voluptates deserunt id, numquam est similique obcaecati repellendus assumenda facere magni necessitatibus. Quasi.
+Eos, distinctio et recusandae voluptatum labore obcaecati. Dicta quasi ut voluptatibus deserunt totam. Doloremque exercitationem adipisci tempora delectus voluptatum consectetur fugit repellat. Corporis sunt, incidunt neque odio asperiores velit quaerat?
+Blanditiis quibusdam unde delectus magnam asperiores reiciendis amet voluptate vel maxime, autem praesentium, enim laudantium? Fuga, ab nostrum deserunt corrupti laudantium quia libero aliquid reprehenderit quibusdam nobis, assumenda qui consequuntur?
+Officia amet aliquid error repudiandae, veritatis dolorum, exercitationem voluptas suscipit in laboriosam voluptatem voluptatibus consequuntur assumenda reiciendis animi id tenetur expedita! Totam sit placeat, et possimus laudantium vitae sunt nulla!
+Quas eligendi doloremque hic minima voluptas modi vero necessitatibus quam, ratione perspiciatis, molestiae laudantium delectus quisquam quaerat sit at totam! Laudantium pariatur sapiente enim praesentium ipsam ut commodi velit quam!
+Eum, explicabo beatae totam iure corporis velit saepe aspernatur esse aperiam ut inventore amet eos modi impedit quibusdam, tempore ipsum ullam facilis veritatis eaque! Eum tempore quo rerum obcaecati corrupti?</p>
+)}
                 </p>
             </div>
-            <p 
-            aria-label="expand-element"
-            style={{
-                position:"absolute",
-                bottom:".8rem",
-                left:"1rem",
-                cursor:"pointer",
-
-            }}
-            onClick={()=> setExpand(!isExpand)}
-            >
-                {isExpand ? "Show less":"Show more"}
-            </p>
-        </div>
+        </motion.div>
         </>
     )
 }
+export {E_Dis}

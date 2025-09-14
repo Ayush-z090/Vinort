@@ -15,14 +15,17 @@ function App() {
   // will track rcommenadtionn video filed via toogle button
   const [showRecommendationTab, setReccoamendation] = useState(false);
   // will track of the situaiton when user want to search for the video 
-  const [IsVideoSearch, setSearchVideo] = useState(true); // change it to set searchpage ViewPort
+  const [IsVideoSearch, setSearchVideo] = useState(false); // change it to set searchpage ViewPort
   // will track when video is streaming
   const [videoStreamState, setStreamState] = useState(false); // change it to set VideoStream viewPort
   // will track the userSearch value..
   const [SearchQuery, setSearchQuery] = useState("after effects");
-  const [SelectedVideoStreamId , setSelectedId] = useState(undefined)
+  const [SelectedVideoStreamId , setSelectedId] = useState(undefined);
+  // set the prompt when user is searching for a video ..
+  const [UserPrompt,setUserPrompt] = useState("help")
+  // set the message to tell user about the action that has taken by the instruction of the form
+  const [ai_Reply,setReply] = useState("waiting for the userPrompt")
 
-  console.log(SelectedVideoStreamId)
   // Context value containing all state and setters
   const contextValue = {
     isTxtAreaActive,
@@ -37,6 +40,10 @@ function App() {
     setSearchQuery,
     SelectedVideoStreamId,
     setSelectedId,
+    UserPrompt,
+    setUserPrompt,
+    ai_Reply,
+    setReply
   };
 
   return (

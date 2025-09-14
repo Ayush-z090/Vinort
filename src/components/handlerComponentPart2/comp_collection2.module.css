@@ -10,4 +10,5 @@
     font-family: dm mono;
     text-transform: uppercase;
     gap: .2rem;
+    width: fit-content;
 }
