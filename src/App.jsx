@@ -53,12 +53,10 @@ function App() {
           autoPlay
           loop
           muted
-          className={styles.vidBackground} src={VidBg}></video>
-      {/* <ComponentHandler/> */}
-      <Routes>
-        <Route path='/' element={<MainPage />} />
-        <Route path='/controler' element={<ComponentHandler/>}/>
-      </Routes>
+          className={styles.vidBackground} src={VidBg}>
+
+          </video>
+          <ComponentHandler/>
       </div>
     </AppContext.Provider>
   );

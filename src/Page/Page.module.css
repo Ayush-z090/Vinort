@@ -1,0 +1,91 @@
+.form{
+	width: 35vw;
+	height: fit-content;
+	border-radius: 1.5rem;
+	margin: 0 auto;
+	box-sizing: border-box;
+	padding:.4rem 1rem .4rem 1rem;
+	background-color:var(--color-bg-01-);
+	display: flex;
+}
+.form:has(.textarea:focus){
+	border-radius: 1rem;
+}
+
+.form button{
+	border-radius: 1em;
+	border: none;
+	outline:none ;
+	font-family: "Dm mono",monospace,sans-serif;
+	padding: .3rem .5rem;
+	background-color: var(--color-text-02-);
+	color: var(--color-bg-01-);
+	cursor: pointer;
+	height: 2rem;
+}
+
+.textarea{
+	width: 100%;
+	height: 2rem;
+	border: none;
+	background-color:transparent;
+	font-family: monospace,sans-serif;
+	color: var(--color-text-02-);
+	font-size: 1.3rem;
+	line-height: 1.1;
+	outline: none;
+	resize: none; /* disable manual resizing */
+	box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+	box-sizing: border-box;
+	padding: .2rem .3rem;
+}
+.textarea::placeholder{
+	color: #8b98a5;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+}
+.textarea::-webkit-scrollbar{
+	display: none;
+}
+
+.Display_stream{
+	display: flex;
+	justify-content: center;
+}
+
+.videoPart{
+	width: 65%;
+	height: 96vh;
+	overflow-y: auto;
+}
+.videoPart::-webkit-scrollbar{
+	display: none;
+}
+
+.search_Body{
+	width: 32%;
+}
+.search_Body h1{
+    font-family: monospace;
+	text-align: center;
+	padding: .5rem 0 1rem 0;
+	text-transform: capitalize;
+	color: var(--color-text-);
+}
+
+.buttonCard{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 12vh;
+}
+
+.FuncionButtons{
+	flex: 1;
+	overflow-y: auto;
+	padding: 1rem;
+}
+

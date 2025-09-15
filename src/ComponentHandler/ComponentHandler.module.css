@@ -1,7 +1,7 @@
 .component_handler{
     box-sizing: border-box;
-    padding-top:25vh ;
     position: relative;
+    padding: 6vh;
     height: 100vh;
 }
 

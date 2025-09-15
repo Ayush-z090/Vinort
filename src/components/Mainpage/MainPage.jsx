@@ -38,7 +38,7 @@ function ContentClass({showCondition,setShowCOnditon}){
       onClick=
       {
         ()=>{
-          if(localStorage.getItem("UserChoosenCategoires")) Navigate("/controler")
+          if(localStorage.getItem("UserChoosenCategoires")) Navigate("/Home")
           else setShowCOnditon(!showCondition)
           }
       }>start journey</button>

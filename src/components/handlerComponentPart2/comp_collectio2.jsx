@@ -39,15 +39,6 @@ return (
                 fill="white"
                 fontFamily="Arial, Helvetica, sans-serif"
                 style={{ fontStyle: 'normal',textTransform:"lowercase"}}
-                // whileHover={{ 
-                //     scale: 1.1,
-                //     fill: "#fff"
-                // }}
-                // whileTap={{ 
-                //     scale: 0.95,
-                //     fill: "#ccc"
-                // }}
-                // transition={{ duration: 0.2 }}
             >
                 i
             </motion.text>
@@ -127,15 +118,6 @@ function E_Dis({content}){
             position:"relative",
             overflow:"hidden"
         }}>
-            {/* <div className="Info_text"
-            style={{
-                display:"flex",
-                gap:"1rem"
-            }}
-            >
-                <p>{views}</p>
-                <p>{getTimeAgo(date)}</p>
-            </div> */}
             <div className="discription_content">
                 <p
                 style={{
@@ -143,15 +125,8 @@ function E_Dis({content}){
                     fontWeight:"300"
                 }}
                 >
-                    {content ? formatDescription(content) : (<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nulla, iure ut, fugiat dolor culpa rem ipsum, minima maxime eaque repellendus laudantium et ipsa odio voluptas error? Corrupti, reprehenderit qui!
-Recusandae omnis fuga tenetur sapiente! Itaque modi voluptatum, deserunt numquam quis in cupiditate saepe atque, error nihil qui. Dicta nihil iusto assumenda incidunt temporibus veritatis consequatur, veniam fugiat officia quae?
-Alias illum vel unde maiores magnam asperiores odio accusamus, autem provident accusantium sapiente deserunt distinctio dolor? Labore, voluptates deserunt id, numquam est similique obcaecati repellendus assumenda facere magni necessitatibus. Quasi.
-Eos, distinctio et recusandae voluptatum labore obcaecati. Dicta quasi ut voluptatibus deserunt totam. Doloremque exercitationem adipisci tempora delectus voluptatum consectetur fugit repellat. Corporis sunt, incidunt neque odio asperiores velit quaerat?
-Blanditiis quibusdam unde delectus magnam asperiores reiciendis amet voluptate vel maxime, autem praesentium, enim laudantium? Fuga, ab nostrum deserunt corrupti laudantium quia libero aliquid reprehenderit quibusdam nobis, assumenda qui consequuntur?
-Officia amet aliquid error repudiandae, veritatis dolorum, exercitationem voluptas suscipit in laboriosam voluptatem voluptatibus consequuntur assumenda reiciendis animi id tenetur expedita! Totam sit placeat, et possimus laudantium vitae sunt nulla!
-Quas eligendi doloremque hic minima voluptas modi vero necessitatibus quam, ratione perspiciatis, molestiae laudantium delectus quisquam quaerat sit at totam! Laudantium pariatur sapiente enim praesentium ipsam ut commodi velit quam!
-Eum, explicabo beatae totam iure corporis velit saepe aspernatur esse aperiam ut inventore amet eos modi impedit quibusdam, tempore ipsum ullam facilis veritatis eaque! Eum tempore quo rerum obcaecati corrupti?</p>
-)}
+
+                    {content ? formatDescription(content) : "(Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nulla, iure ut, fugiat dolor culpa rem ipsum, minima maxime eaque repellendus laudantium et ipsa odio voluptas error? Corrupti, reprehenderit qui!Recusandae omnis fuga tenetur sapiente! Itaque modi voluptatum, deserunt numquam quis in cupiditate saepe atque, error nihil qui. Dicta nihil iusto assumenda incidunt temporibus veritatis consequatur, veniam fugiat officia quae?Alias illum vel unde maiores magnam asperiores odio accusamus, autem provident accusantium sapiente deserunt distinctio dolor? Labore, voluptates deserunt id, numquam est similique obcaecati repellendus assumenda facere magni necessitatibus. Quasi.Eos, distinctio et recusandae voluptatum labore obcaecati. Dicta quasi ut voluptatibus deserunt totam. Doloremque exercitationem adipisci tempora delectus voluptatum consectetur fugit repellat. Corporis sunt, incidunt neque odio asperiores velit quaerat?Blanditiis quibusdam unde delectus magnam asperiores reiciendis amet voluptate vel maxime, autem praesentium, enim laudantium? Fuga, ab nostrum deserunt corrupti laudantium quia libero aliquid reprehenderit quibusdam nobis, assumenda qui consequuntur?Officia amet aliquid error repudiandae, veritatis dolorum, exercitationem voluptas suscipit in laboriosam voluptatem voluptatibus consequuntur assumenda reiciendis animi id tenetur expedita! Totam sit placeat, et possimus laudantium vitae sunt nulla!Quas eligendi doloremque hic minima voluptas modi vero necessitatibus quam, ratione perspiciatis, molestiae laudantium delectus quisquam quaerat sit at totam! Laudantium pariatur sapiente enim praesentium ipsam ut commodi velit quam!Eum, explicabo beatae totam iure corporis velit saepe aspernatur esse aperiam ut inventore amet eos modi impedit quibusdam, tempore ipsum ullam facilis veritatis eaque! Eum tempore quo rerum obcaecati corrupti?)"}
                 </p>
             </div>
         </motion.div>

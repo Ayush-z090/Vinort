@@ -1,4 +1,4 @@
-import {  Link } from "react-router-dom"
+import {  Link, useNavigate } from "react-router-dom"
 import Styles from "../Cards/Card.module.css"
 import { useState,useEffect,useContext } from "react"
 import { motion } from "framer-motion"
@@ -9,6 +9,7 @@ export default function SeacrchQuery_videoCard({dataObject}){
 
     const { setSelectedId,setStreamState,IsVideoSearch,setSearchVideo,videoStreamState } = useContext(AppContext);
     let [UserAvatar,setAvatar]= useState([])
+    let Navigate = useNavigate()
     let API_KEY = import.meta.env.VITE_YT_API_KEY
     let API_URL = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${dataObject?.snippet?.channelId}&key=${API_KEY}`
     let [isHover,setHoverState] = useState(false)
@@ -36,11 +37,12 @@ export default function SeacrchQuery_videoCard({dataObject}){
             ()=>
                 {
                     setSelectedId(dataObject?.id.videoId);
-                    if(IsVideoSearch)
-                        {
-                            setSearchVideo(false);
-                            setStreamState(true);
-                        }
+                    Navigate("/Stream")
+                    // if(IsVideoSearch)
+                    //     {
+                    //         setSearchVideo(false);
+                    //         setStreamState(true);
+                    //     }
                     // else if(videoStreamState){
                     //     setSelectedId(dataObject?.id.videoId);
                     // }
