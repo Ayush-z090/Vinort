@@ -7,7 +7,7 @@ import { AppContext } from "../../App"
 
 export default function SeacrchQuery_videoCard({dataObject}){
 
-    const { setSelectedId,setStreamState,IsVideoSearch,setSearchVideo,videoStreamState } = useContext(AppContext);
+    const { setSelectedId,IsVideoSearch,setSearchVideo } = useContext(AppContext);
     let [UserAvatar,setAvatar]= useState([])
     let Navigate = useNavigate()
     let API_KEY = import.meta.env.VITE_YT_API_KEY
@@ -38,15 +38,6 @@ export default function SeacrchQuery_videoCard({dataObject}){
                 {
                     setSelectedId(dataObject?.id.videoId);
                     Navigate("/Stream")
-                    // if(IsVideoSearch)
-                    //     {
-                    //         setSearchVideo(false);
-                    //         setStreamState(true);
-                    //     }
-                    // else if(videoStreamState){
-                    //     setSelectedId(dataObject?.id.videoId);
-                    // }
-                
                 }
             }
         className={Styles.Card_container}

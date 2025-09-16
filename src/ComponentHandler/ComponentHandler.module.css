@@ -1,7 +1,6 @@
 .component_handler{
     box-sizing: border-box;
     position: relative;
-    padding: 6vh;
     height: 100vh;
 }
 
@@ -75,6 +74,7 @@
     flex-direction: column;
     justify-content: end;
     align-items: center;
+    overflow: scroll;
 }
 
 .ai_reply p{
@@ -83,9 +83,10 @@
     font-size: 1.15rem;
     line-height: 1.1;
     position: relative;
+    font-family: dm mono;
 }
 
-.ai_reply p::-webkit-scrollbar{
+.ai_reply p::-webkit-scrollbar,.ai_reply::-webkit-scrollbar{
     display: none;
 }
 

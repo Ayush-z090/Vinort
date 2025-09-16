@@ -8,7 +8,10 @@ import MainPage from "../components/Mainpage/MainPage.jsx"
 import Home from "../Page/Home.jsx"
 import Search from "../Page/Search.jsx"
 import Stream from "../Page/Stream.jsx"
+import { useLocation } from "react-router-dom"
+
 export default function ComponentHandler(){
+    let location= useLocation()
     // Get all state variables and setters from context
     const {
         isTxtAreaActive,
@@ -17,24 +20,24 @@ export default function ComponentHandler(){
         setReccoamendation,
         IsVideoSearch,
         setSearchVideo,
-        videoStreamState,
         setStreamState,
         SearchQuery,
-        setSearchQuery
+        setSearchQuery,
     } = useContext(AppContext);
     
     return(
         <>
             <motion.div 
             animate={
-                IsVideoSearch ? {
+                location.pathname === '/Search' ? {
                 // paddingTop: "10vh" ,
                 display:"flex",
                 gap:"2rem",
                 flexDirection:"column",
                 backdropFilter: "blur(6px) brightness(0.5)"
                 }:
-                videoStreamState ? {paddingTop : "5vh",backdropFilter: "blur(6px) brightness(0.5)"} : {}
+                location.pathname === '/Stream' ? {paddingTop : "5vh",backdropFilter: "blur(6px) brightness(0.5)"} : 
+                location.pathname === "/Home" ? {paddingTop :"25vh"} :{ }
             }
             className={Styles.component_handler}>
                 <Ai_Reply/>
@@ -53,14 +56,21 @@ export default function ComponentHandler(){
 
 
 function Ai_Reply(){
+
+    let location= useLocation()
+
     const {
         isTxtAreaActive,
         setTxtActivation, 
-        ai_Reply
+        ai_Reply,
+        returnHTML,
+        isUSer_Note,
+        
         } = useContext(AppContext);
 
     let [overflow_condition,setOverflow] = useState(false)
 
+    console.log(returnHTML)
     useEffect(()=>{
         let num  = getLineCount(document.getElementById("test"))
         setOverflow(num >=5)
@@ -69,13 +79,21 @@ function Ai_Reply(){
         <>
             <motion.div
             initial={{}}
-            onClick={()=> setTxtActivation(false)}
+            onClick={()=>{ setTxtActivation(false)}}
             animate={
-                {
-                    top:isTxtAreaActive ? "-2%" : undefined,
-                }
+                isUSer_Note ? {
+                    top: "-14rem",
+                    transform: "translate(-50%, 50%)",
+                    height: "69vh",
+                    zIndex: 3,
+                    justifyContent: "start",
+                    gap:"1rem",
+                    alignItems:"start",
+                    padding:"2rem 2.4rem"
+                } : isTxtAreaActive ? {top :"-2%"} : ""
             }
             className={Styles.ai_reply}>
+                {isUSer_Note ?  returnHTML.map(data=> <ELemntGEn key={data.head} head={data.head} body={data.body}/>) : ""}
                 <motion.p
                 initial={{overflow:"initial"}}
                 animate={
@@ -85,7 +103,7 @@ function Ai_Reply(){
 
                     }:{}
                 }
-                id="test">{ai_Reply}</motion.p>
+                id="test">{ isUSer_Note ? "" : ai_Reply}</motion.p>
             </motion.div>
         </>
     )
@@ -99,5 +117,15 @@ function getLineCount(el) {
     return Math.round(height / lineHeight);
   }
 
+function ELemntGEn({head,body}){
+    return(
+        <>
+            <div className={Styles.returnParent}>
+                <h1>{head}</h1>
+                {body.map(points=> <li>{points}</li>)}
+            </div>
+        </>
+    )
+}
 
 export {Ai_Reply,getLineCount}

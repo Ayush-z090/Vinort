@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home(){
     return(<>
-        <Ai_assistForm sty={{"marginTop":"25vh"}}/>
+        <Ai_assistForm />
         <ToogleButton/>
     </>)
 }
@@ -26,11 +26,12 @@ function Ai_assistForm({sty={}}){
         setSearchVideo,
         UserPrompt,
         setUserPrompt,
-        videoStreamState,
         SelectedVideoStreamId,
         setSelectedId,
         setStreamState,
-        setReply
+        setReply,
+        setHTML,
+        isUSer_Note, setNote
     }
          = useContext(AppContext);
     
@@ -41,23 +42,25 @@ function Ai_assistForm({sty={}}){
         console.log('User input:', userInput);
         Fetch_Data({
             userPromt : userInput,
-            videoStreamState : videoStreamState,
             videoId : SelectedVideoStreamId ? SelectedVideoStreamId : null
         }).then(res=> res.json())
         .then(res=>{
 
             const MainData = res?.DataReceive;
-
+            console.log(MainData.HTML)
             try{
 
-            setReply(MainData?.message ?? MainData?.vid_Related_res)
-            
+            setReply(MainData?.message)
+            console.log(MainData?.message)
             switch(MainData.prompt_Type){
                 case "link" : {
                     setSelectedId(MainData.passed_URL_ID);
                     Navigate("/Stream")
-                    // setSearchVideo(false);
-                    // setStreamState(true);
+                    return ;
+                }
+                case "VideoDetail" :{
+                    setNote(true)
+                    setHTML(MainData.HTML)
                 }
             }
             console.log(res)
