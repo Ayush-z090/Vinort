@@ -9,6 +9,7 @@ import Home from "../Page/Home.jsx"
 import Search from "../Page/Search.jsx"
 import Stream from "../Page/Stream.jsx"
 import { useLocation } from "react-router-dom"
+import Navbar from "../components/Navbar/Navbar.jsx"
 
 export default function ComponentHandler(){
     let location= useLocation()
@@ -30,16 +31,16 @@ export default function ComponentHandler(){
             <motion.div 
             animate={
                 location.pathname === '/Search' ? {
-                // paddingTop: "10vh" ,
                 display:"flex",
                 gap:"2rem",
                 flexDirection:"column",
                 backdropFilter: "blur(6px) brightness(0.5)"
                 }:
-                location.pathname === '/Stream' ? {paddingTop : "5vh",backdropFilter: "blur(6px) brightness(0.5)"} : 
+                location.pathname === '/Stream' ? {backdropFilter: "blur(6px) brightness(0.5)"} : 
                 location.pathname === "/Home" ? {paddingTop :"25vh"} :{ }
             }
             className={Styles.component_handler}>
+                <Navbar/>
                 <Ai_Reply/>
                 <Routes>
                     <Route path='/' element={<MainPage />} />
@@ -57,7 +58,13 @@ export default function ComponentHandler(){
 
 function Ai_Reply(){
 
-    let location= useLocation()
+
+    const ai_base_value ={
+        transform: "translate(-50%, 0)",
+        height:"fit-content",
+        padding:"2rem 1rem 1rem 1rem",
+        
+    }
 
     const {
         isTxtAreaActive,
@@ -67,6 +74,13 @@ function Ai_Reply(){
         isUSer_Note,
         
         } = useContext(AppContext);
+
+        useEffect(()=>{
+            setTimeout(() => {
+                console.log(true)
+                if(isTxtAreaActive) setTxtActivation(false)
+            }, 5000);
+        })
 
     let [overflow_condition,setOverflow] = useState(false)
 
@@ -79,13 +93,11 @@ function Ai_Reply(){
         <>
             <motion.div
             initial={{}}
-            onClick={()=>{ setTxtActivation(false)}}
             animate={
                 isUSer_Note ? {
                     top: "-14rem",
                     transform: "translate(-50%, 50%)",
                     height: "69vh",
-                    zIndex: 3,
                     justifyContent: "start",
                     gap:"1rem",
                     alignItems:"start",

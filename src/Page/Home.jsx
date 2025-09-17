@@ -84,6 +84,12 @@ function Ai_assistForm({sty={}}){
             onSubmit={ handleFormSubmit}>
                 <motion.textarea
                 onClick={()=> setTxtActivation(true)}
+                onKeyDown={(e)=>{
+                    if(e.key === "Enter" && !e.shiftKey){
+                        e.preventDefault();
+                        e.currentTarget.form?.requestSubmit();
+                    }
+                }}
                 whileFocus={
                     {
                      height:"4rem"
