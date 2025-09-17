@@ -18,17 +18,19 @@ export default function SeacrchQuery_videoCard({dataObject}){
     let FetchUserData = async ()=>{
         try{
             let Fetch_Data = await fetch(API_URL)
+            if(!Fetch_Data.ok) throw new Error("yt api limit reach");
             let Data = await Fetch_Data.json()
             Data?.items ? setAvatar(Data.items[0].snippet.thumbnails) : ""
             
         }catch(e){
-            console.log(e)
+            console.log(e.message)
         }
     }
 
     useEffect(()=>{
         FetchUserData()
     },[])
+    
     return<>
         <motion.div
         onHoverStart={()=>setHoverState(true)}

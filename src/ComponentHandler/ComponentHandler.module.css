@@ -75,6 +75,7 @@
     justify-content: end;
     align-items: center;
     overflow: scroll;
+    font-family: dm mono;
 }
 
 .ai_reply p{

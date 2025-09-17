@@ -109,7 +109,12 @@ export function Page_Content({maxResultNum=15,sty={}}){
 
     let FETCH_data =async ()=>{
         try{
+            
             let FetchData = await fetch(API_URl)
+            if(!FetchData.ok) {
+                setData(dummySearchData)
+                throw new Error("most likely yt api limit reached")};
+            console.log("enter")
             let DATA = await FetchData.json()
             if (!DATA.items && DATA.error.code === 403){
                 setData(dummySearchData)
@@ -117,7 +122,7 @@ export function Page_Content({maxResultNum=15,sty={}}){
             }
             setData(DATA.items)
         }catch(err){
-            console.log(`unable to reload \nError: ${err}`)
+            console.log(`unable to reload \nError: ${err.message}`)
         }
     }
 

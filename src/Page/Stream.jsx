@@ -48,7 +48,7 @@ function VideoDisplay(){
 
 function Vidfunction(){
 
-    let {SelectedVideoStreamId} = useContext(AppContext)
+    let {SelectedVideoStreamId,setReply} = useContext(AppContext)
     let [fetchData,setData] = useState([])
     let [ClickState,setClickState] =  useState(false)
     let API_KEY = import.meta.env.VITE_YT_API_KEY
@@ -57,14 +57,16 @@ function Vidfunction(){
     let FetchFunction = async ()=>{
         try{
             let FETCHData = await fetch(API_URL);
+            if(!FETCHData.ok) throw new Error("yt api limit reach");
             let data = await FETCHData.json();
-            console.log(data.error.code === 403)
-            if (data.error.code === 403){
-                throw new Error("yt api limit reach")
-            }
+
+            // if (data.error.code === 403){
+            //     throw new Error("yt api limit reach")
+            // }
             setData(Object.keys(data).includes("items") ? data?.items[0] : data)
+            
         }catch(e){
-            console.error(`unable to fetch the data\nerror:\t${e}`)
+            console.log(`unable to fetch the data\nerror:\t${e}`)
         }
     }
     useEffect(()=>{

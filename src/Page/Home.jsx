@@ -37,6 +37,7 @@ function Ai_assistForm({sty={}}){
     
     const handleFormSubmit = (e) => {
         e.preventDefault();
+
         const formData = new FormData(e.target);
         const userInput = formData.get('UserPrompt');
         console.log('User input:', userInput);
@@ -47,7 +48,7 @@ function Ai_assistForm({sty={}}){
         .then(res=>{
 
             const MainData = res?.DataReceive;
-            console.log(MainData.HTML)
+            console.log(MainData)
             try{
 
             setReply(MainData?.message)
@@ -65,7 +66,8 @@ function Ai_assistForm({sty={}}){
             }
             console.log(res)
         }catch(error){
-            // setReply(`${MainData.message} \n ${MainData.errorType}`)
+            setReply("cant connect ai at the momment")
+            console.log(`${res?.message} \n ${res?.errorType}`)
         }
             
             }
@@ -79,7 +81,7 @@ function Ai_assistForm({sty={}}){
             id="_form"
             style={sty}
             className={Styles.form}
-            onSubmit={handleFormSubmit}>
+            onSubmit={ handleFormSubmit}>
                 <motion.textarea
                 onClick={()=> setTxtActivation(true)}
                 whileFocus={
