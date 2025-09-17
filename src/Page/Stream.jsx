@@ -34,7 +34,7 @@ function VideoDisplay(){
                             width: "100%",
                             padding: "1rem clamp(1rem, 7vw, 10rem)",
                             gap: "3rem",
-                            height:"96vh"
+                            height:"84vh"
                         }
                     }
                 />
@@ -54,8 +54,19 @@ function Vidfunction(){
     let API_KEY = import.meta.env.VITE_YT_API_KEY
     let API_URL = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${SelectedVideoStreamId}&key=${API_KEY}`
 
+    // in-memory cache for video details by videoId
+    if(!window.__ytVideoDetailCache){ window.__ytVideoDetailCache = new Map(); }
+    let videoDetailCache = window.__ytVideoDetailCache;
+
     let FetchFunction = async ()=>{
         try{
+            // use cache if available for current SelectedVideoStreamId
+            const cached = videoDetailCache.get(SelectedVideoStreamId);
+            if(cached){
+                console.log("catch")
+                setData(cached);
+                return;
+            }
             let FETCHData = await fetch(API_URL);
             if(!FETCHData.ok) throw new Error("yt api limit reach");
             let data = await FETCHData.json();
@@ -63,7 +74,9 @@ function Vidfunction(){
             // if (data.error.code === 403){
             //     throw new Error("yt api limit reach")
             // }
-            setData(Object.keys(data).includes("items") ? data?.items[0] : data)
+            const normalized = Object.keys(data).includes("items") ? data?.items[0] : data;
+            videoDetailCache.set(SelectedVideoStreamId, normalized);
+            setData(normalized)
             
         }catch(e){
             console.log(`unable to fetch the data\nerror:\t${e}`)

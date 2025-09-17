@@ -15,12 +15,27 @@ export default function SeacrchQuery_videoCard({dataObject}){
     let [isHover,setHoverState] = useState(false)
 
 
-    let FetchUserData = async ()=>{
+	// in-memory cache for channel thumbnails, persists while tab is open
+	if(!window.__ytChannelThumbCache){ window.__ytChannelThumbCache = new Map(); }
+	let channelThumbCache = window.__ytChannelThumbCache;
+
+	let FetchUserData = async ()=>{
         try{
-            let Fetch_Data = await fetch(API_URL)
-            if(!Fetch_Data.ok) throw new Error("yt api limit reach");
-            let Data = await Fetch_Data.json()
-            Data?.items ? setAvatar(Data.items[0].snippet.thumbnails) : ""
+			// use cached thumbnails if available for this channel
+			const cachedThumbs = channelThumbCache.get(dataObject?.snippet?.channelId);
+			if(cachedThumbs){
+				setAvatar(cachedThumbs);
+				return;
+			}
+
+			let Fetch_Data = await fetch(API_URL)
+			if(!Fetch_Data.ok) throw new Error("yt api limit reach");
+			let Data = await Fetch_Data.json()
+			if(Data?.items){
+				const thumbs = Data.items[0].snippet.thumbnails;
+				channelThumbCache.set(dataObject?.snippet?.channelId, thumbs);
+				setAvatar(thumbs)
+			}
             
         }catch(e){
             console.log(e.message)

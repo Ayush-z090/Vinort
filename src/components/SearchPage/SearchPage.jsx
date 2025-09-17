@@ -128,7 +128,7 @@ export function Page_Content({maxResultNum=15,sty={}}){
 
     useEffect(()=>{
         FETCH_data()
-    },[])
+    },[query])
 
     return(
         <>
