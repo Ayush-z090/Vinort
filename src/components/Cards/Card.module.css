@@ -13,6 +13,13 @@
     display: block;
 }
 
+.channdelAvatar_name{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .Thumbnail_ImgField img,.ImgField_Icon_usrPic img{
     position: absolute;
     width: 100%;
@@ -65,8 +72,8 @@
     text-align: center;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     height: 72%;
-    justify-content: center;
     padding: 0.6rem;
     font-family: "Dm mono";
 }

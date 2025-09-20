@@ -5,7 +5,7 @@ import { Page_Content } from "../SearchPage/SearchPage"
 import { AppContext } from "../../App.jsx"
 
 export default function ToogleButton() {
-    const { showRecommendationTab, setReccoamendation } = useContext(AppContext);
+    const { showRecommendationTab, setReccoamendation ,isWidthLimit} = useContext(AppContext);
 
     const handleToggle = () => {
         setReccoamendation(!showRecommendationTab)
@@ -35,7 +35,7 @@ export default function ToogleButton() {
             />
         </motion.button>
         
-        <span className={Styles.toggleLabel}>
+        <span className={Styles.toggleLabel} style={isWidthLimit ? {fontSize:".8rem"}:{}}>
         video reccomandation is {showRecommendationTab ? "ON" : "OFF"}
         </span>
     </div>
@@ -50,19 +50,18 @@ function Recommendation(){
             <motion.div
             animate={showRecommendationTab ? {bottom:0} : {}}
             className={Styles.RecommendationContainer}>
-                <Page_Content/>
+                <Page_Content mode="local" />
             </motion.div>
         
     )
 }
 
-function UserSearchCards({ParentSty={},childSty={}}){
-    const { SearchQuery } = useContext(AppContext);
+function UserSearchCards({ParentSty={}}){
     
     return(
         <>
             <div className={Styles.search_Cards_container} style={ParentSty}>
-                <Page_Content maxResultNum={5} searchValue={SearchQuery}/>
+                <Page_Content maxResultNum={35}  mode="search"/>
             </div>
         </>
     )

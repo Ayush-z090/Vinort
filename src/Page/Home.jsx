@@ -6,6 +6,8 @@ import { Fetch_Data } from "../JS_Script/Fetch_Script.js";
 import { motion } from "framer-motion";
 import Styles from "./Page.module.css";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom"
+
 
 export default function Home(){
     return(<>
@@ -17,6 +19,7 @@ export default function Home(){
 
 function Ai_assistForm({sty={}}){
 
+    const Location = useLocation();
     const Navigate = useNavigate();
 
     const { 
@@ -24,14 +27,14 @@ function Ai_assistForm({sty={}}){
         setTxtActivation, 
         IsVideoSearch, 
         setSearchVideo,
-        UserPrompt,
-        setUserPrompt,
         SelectedVideoStreamId,
         setSelectedId,
-        setStreamState,
         setReply,
         setHTML,
-        isUSer_Note, setNote
+        isUSer_Note, setNote,
+        setSearchQuery,
+        isWidthLimit
+
     }
          = useContext(AppContext);
     
@@ -52,16 +55,29 @@ function Ai_assistForm({sty={}}){
             try{
 
             setReply(MainData?.message)
-            console.log(MainData?.message)
+
             switch(MainData.prompt_Type){
+                // will handle link path 
                 case "link" : {
                     setSelectedId(MainData.passed_URL_ID);
                     Navigate("/Stream")
                     return ;
                 }
+                // will handle videoAI talk
                 case "VideoDetail" :{
-                    setNote(true)
-                    setHTML(MainData.HTML)
+                    if(Location.pathname === "/Stream"){
+                        setNote(true)
+                        setHTML(MainData.HTML)
+                    }
+                    return;
+                }
+                // will handle user search with yt search api
+                case "search": {
+                    if(Location.pathname === "/Home"){
+                    Navigate("/Search")    
+                    }
+                    setSearchQuery(userInput);
+                    return;
                 }
             }
             console.log(res)
@@ -79,7 +95,7 @@ function Ai_assistForm({sty={}}){
         <>
             <motion.form
             id="_form"
-            style={sty}
+            style={isWidthLimit ? {width:"85vw",...sty}:{...sty}}
             className={Styles.form}
             onSubmit={ handleFormSubmit}>
                 <motion.textarea

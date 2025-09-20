@@ -14,7 +14,7 @@ const MainPage = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <h1 className={styles.mainTitle}>Welcome to My App</h1>
+      <h1 className={styles.mainTitle}>Welcome to Vinort</h1>
       <div className={styles.content}>
         {showUserInterest ? <UserInterest 
         setShowCOnditon={setShowUserInterest}/> : 

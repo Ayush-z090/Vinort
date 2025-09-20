@@ -5,9 +5,9 @@ import { motion } from "framer-motion"
 import { AppContext } from "../../App"
 
 
-export default function SeacrchQuery_videoCard({dataObject}){
+export default function SeacrchQuery_videoCard({dataObject,Textsty={}}){
 
-    const { setSelectedId,IsVideoSearch,setSearchVideo } = useContext(AppContext);
+    const { setSelectedId,setReccoamendation,isWidthLimit } = useContext(AppContext);
     let [UserAvatar,setAvatar]= useState([])
     let Navigate = useNavigate()
     let API_KEY = import.meta.env.VITE_YT_API_KEY
@@ -48,68 +48,108 @@ export default function SeacrchQuery_videoCard({dataObject}){
     
     return<>
         <motion.div
+        style={isWidthLimit ? 
+            {
+                width:"70vw",
+                height:"73vw"
+            } : {}}
         onHoverStart={()=>setHoverState(true)}
         onHoverEnd={()=> setHoverState(false)}
         onClick={
             ()=>
                 {
+                    console.log("clciked")
                     setSelectedId(dataObject?.id.videoId);
+                    setReccoamendation(false);
                     Navigate("/Stream")
                 }
             }
         className={Styles.Card_container}
         initial={{transform:"scale(1.1)"}}
-        animate={{transform: isHover ? "scale(.9)" : undefined , transition:{duration:.5} }}
+        animate={{transform: isHover && !isWidthLimit ? "scale(.9)" : undefined , transition:{duration:.5} }}
         >
 
-            <motion.div
-            initial={{right:"55%"}}
-            animate={
-                {
-                    right:isHover ? "97%" : undefined,
-                    transition:{duration:.5}
-                }
-            }
-            className={Styles.Popup}>
-                    <DownPopUp dataObject={dataObject} UserAvatar={UserAvatar}/>
-                    <span>{getTimeAgo(dataObject.snippet.publishedAt)}</span>
-            </motion.div>
+            {isWidthLimit ? "" :<DownPopUp dataObject={dataObject} UserAvatar={UserAvatar} isHover={isHover}/>}
+
             <Link 
             // to={action ? "":`/video/${dataObject?.id.videoId}`} 
+            style={isWidthLimit ?
+                {
+                    borderRadius:0
+                }:{}
+            }
             className={Styles.Thumbnail_ImgField} 
             aria-label="thumnal-video"
             >
                 <img src={dataObject.snippet.thumbnails.high.url} alt="" />
             </Link>
             <div 
+            style={isWidthLimit ?{"min-height":"5rem",padding:0} : {}}
             className={Styles.feedDetails}
             >
-                <Link
-                style={{
-                }}
-                // to={action ? "":`/video/${dataObject.snippet.categoryId}/${dataObject.id}`} 
+                {isWidthLimit ? <DownPopUp dataObject={dataObject} UserAvatar={UserAvatar} isHover={isHover}/>:""}
+                {isWidthLimit ? "" : <p
+                style={{...Textsty}}
                 className={Styles.VideoTitle}>
                     
-                    {dataObject.snippet.title}
-                </Link>
+                    {truncateTitle(dataObject.snippet.title)}
+                </p>}
             </div>
         </motion.div>
     </>
 }
 
 
-function DownPopUp({dataObject,UserAvatar}){
+function DownPopUp({dataObject,UserAvatar,isHover,Textsty={}}){
+    let {isWidthLimit} = useContext(AppContext)
     return(
         <>
-        <Link to={`/${dataObject.snippet.channelId}`} className={Styles.ImgField_Icon_usrPic}>
-            <img src={UserAvatar?.high?.url} alt="" />
-        </Link>
-        <p
-        style={{
-            fontSize:".8rem",
-            padding:".3rem 0 0 0"
-        }}
-        >{dataObject.snippet.channelTitle}</p>
+            <motion.div
+            style={isWidthLimit ? {
+                width:"100%",
+                position:"relative",
+                height:"100%",
+                flexDirection:"row",
+                borderRadius:"0"
+            }:{}}
+            initial={isWidthLimit ? {} :{right:"55%"}}
+            animate={
+                isWidthLimit ?{} :{
+                    right:isHover ? "97%" : undefined,
+                    transition:{duration:.5}
+                }
+            }
+            className={Styles.Popup}>
+                    <div className={Styles.channdelAvatar_name}>
+                    <Link to={`/${dataObject.snippet.channelId}`} className={Styles.ImgField_Icon_usrPic}>
+                        <img src={UserAvatar?.high?.url} alt="" />
+                    </Link>
+                    <p
+                    style={{
+                        fontSize:".6rem",
+                        padding:".3rem 0 0 0"
+                    }}
+                    >{dataObject.snippet.channelTitle}</p>
+                    </div>
+                    <div 
+                    style={isWidthLimit ? 
+                        {
+                            display:"flex",
+                            flexDirection:"column",
+                            gap:".3rem",
+                        }:{}}
+                    className="">
+                    { isWidthLimit ?
+                     <p
+                    style={isWidthLimit ? {...Textsty,padding:0,fontSize:".69rem"}:{...Textsty}}
+                    className={Styles.VideoTitle}>
+                        
+                        {truncateTitle(dataObject.snippet.title)}
+                    </p>:""}
+                    <span style={isWidthLimit ? {fontSize:".7rem"} : {}}>{getTimeAgo(dataObject.snippet.publishedAt)}</span>
+                    </div>
+            </motion.div>
+        
         </>
     )
 }
@@ -126,6 +166,12 @@ function formatViewCount(views) {
     return (views / 1000).toFixed(1) + 'K';
   }
   return views?.toString();
+}
+
+function truncateTitle(title, maxLength = 50) {
+    if (!title) return '';
+    if (title.length <= maxLength) return title;
+    return title.substring(0, maxLength) + '...';
 }
 
 function getTimeAgo(isoDate) {
@@ -156,4 +202,4 @@ function getTimeAgo(isoDate) {
     return `${years} years ago`;
 }
 
-export {formatViewCount,getTimeAgo}
+export {formatViewCount,getTimeAgo,truncateTitle}

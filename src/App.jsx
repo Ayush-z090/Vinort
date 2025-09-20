@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import MainPage from './components/Mainpage/MainPage';
 import styles from './App.module.css';
@@ -25,8 +25,8 @@ function App() {
   // will track the userSearch value..
   const [SearchQuery, setSearchQuery] = useState("after effects");
   const [SelectedVideoStreamId , setSelectedId] = useState(undefined);
-  // set the prompt when user is searching for a video ..
-  const [UserPrompt,setUserPrompt] = useState("help")
+
+  const [isWidthLimit,setLimit] = useState(false)
   // set the message to tell user about the action that has taken by the instruction of the form
   const [ai_Reply,setReply] = useState("waiting for the userPrompt")
   const [returnHTML,setHTML] = useState(triakObj.HTMl);
@@ -43,13 +43,21 @@ function App() {
     setSearchQuery,
     SelectedVideoStreamId,
     setSelectedId,
-    UserPrompt,
-    setUserPrompt,
     ai_Reply,
     setReply,
     returnHTML,
-    setHTML
+    setHTML,
+    isWidthLimit
   };
+
+  useEffect(()=>{
+    if (window.innerWidth < 700 ) setLimit(true);
+    window.addEventListener("resize",()=>{
+      if (window.innerWidth < 700) setLimit(true);
+      else setLimit(false)
+
+    });
+  },[])
 
   return (
     <AppContext.Provider value={contextValue}>

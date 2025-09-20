@@ -28,6 +28,7 @@ function VideoDisplay(){
                 <div className={Styles.search_Body}>
                     <h1>search result</h1>
                 <Page_Content 
+                mode="auto"
                 maxResultNum={10} 
                 sty={
                         {

@@ -21,7 +21,6 @@ export default function ComponentHandler(){
         setReccoamendation,
         IsVideoSearch,
         setSearchVideo,
-        setStreamState,
         SearchQuery,
         setSearchQuery,
     } = useContext(AppContext);
@@ -30,6 +29,7 @@ export default function ComponentHandler(){
         <>
             <motion.div 
             animate={
+                location.pathname === "/" ? {paddingTop:0} :
                 location.pathname === '/Search' ? {
                 display:"flex",
                 gap:"2rem",
@@ -49,7 +49,7 @@ export default function ComponentHandler(){
                     <Route path="/Stream" element={<Stream/>}/>
                 </Routes>
 
-                <Recommendation/>
+                {showRecommendationTab ? <Recommendation/> : ""}
             </motion.div>
         </>
     )
@@ -75,16 +75,16 @@ function Ai_Reply(){
         
         } = useContext(AppContext);
 
-        useEffect(()=>{
-            setTimeout(() => {
-                console.log(true)
-                if(isTxtAreaActive) setTxtActivation(false)
-            }, 5000);
-        })
+        // useEffect(()=>{
+        //     setTimeout(() => {
+        //         console.log(true)
+        //         if(isTxtAreaActive) setTxtActivation(false)
+        //     }, 10 * 1000);
+
+        // })
 
     let [overflow_condition,setOverflow] = useState(false)
 
-    console.log(returnHTML)
     useEffect(()=>{
         let num  = getLineCount(document.getElementById("test"))
         setOverflow(num >=5)
@@ -102,7 +102,7 @@ function Ai_Reply(){
                     gap:"1rem",
                     alignItems:"start",
                     padding:"2rem 2.4rem"
-                } : isTxtAreaActive ? {top :"-2%"} : ""
+                } : isTxtAreaActive ? {top :"-2%",...ai_base_value} : {height:"5.4rem"}
             }
             className={Styles.ai_reply}>
                 {isUSer_Note ?  returnHTML.map(data=> <ELemntGEn key={data.head} head={data.head} body={data.body}/>) : ""}
