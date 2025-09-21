@@ -8,24 +8,52 @@ import { Ai_assistForm } from "./Home.jsx";
 
 
 export default function Stream(){
+    const { isWidthLimit } = useContext(AppContext);
+
     return(
         <>
             <VideoDisplay/>
+            {isWidthLimit ? <div className={Styles.bottom_prompt}>
+                <Ai_assistForm/>
+            </div> : ""}
         </>
     )
 }
 
 function VideoDisplay(){
-    const { SearchQuery,SelectedVideoStreamId } = useContext(AppContext);
+    const { isWidthLimit } = useContext(AppContext);
     
     return(
         <>
-            <div className={Styles.Display_stream}>
-                <div className={Styles.videoPart}>
-                    <VideoStreamer/>
-                    <Vidfunction/>
+            <div
+            style={isWidthLimit ? 
+                {
+                    height:"fit-content",
+                    flexDirection:"column",
+                    alignItems:"center",
+                    gap:"1rem",
+                } : {}}
+            className={Styles.Display_stream}>
+                {/* {isWidthLimit ? <Ai_assistForm sty={{"margin":0}}/> : ""} */}
+                <div 
+                style={isWidthLimit ?
+                    {
+                        width:"100%",
+                        height:"40vh",
+                        overflow:"none"
+
+                    }: {}}
+                className={Styles.videoPart}>
+
+                    <VideoStreamer
+                    sty={isWidthLimit ? 
+                        {
+                            height:"100%"
+                        } : {}}/>
+                {isWidthLimit ? "" : <Vidfunction/>}
                 </div>
-                <div className={Styles.search_Body}>
+                {isWidthLimit ? <Vidfunction/> : ""}
+                { isWidthLimit ? "" : <div className={Styles.search_Body}>
                     <h1>search result</h1>
                 <Page_Content 
                 mode="auto"
@@ -40,8 +68,33 @@ function VideoDisplay(){
                     }
                 />
 
-                </div>
+                </div>}
             </div>
+
+
+            { isWidthLimit ?  
+            <div
+            style={isWidthLimit ? 
+                {
+                    width:"100%"
+                } : {}}
+            className={Styles.search_Body}>
+                    {isWidthLimit ? "" : <h1>search result</h1>}
+                <Page_Content 
+                mode="auto"
+                maxResultNum={10} 
+                sty={
+                        {
+                            width: "100%",
+                            padding: "1rem clamp(1rem, 7vw, 10rem) 5vh clamp(1rem, 7vw, 10rem)",
+                            gap: "3rem",
+                            overflow:"initial"
+                        }
+                    }
+                />
+
+                </div> : ""}
+
         </>
     )
 }
@@ -49,7 +102,7 @@ function VideoDisplay(){
 
 function Vidfunction(){
 
-    let {SelectedVideoStreamId,setReply} = useContext(AppContext)
+    let {SelectedVideoStreamId,isWidthLimit} = useContext(AppContext)
     let [fetchData,setData] = useState([])
     let [ClickState,setClickState] =  useState(false)
     let API_KEY = import.meta.env.VITE_YT_API_KEY
@@ -97,7 +150,7 @@ function Vidfunction(){
             className={Styles.FuncionButtons}>
                 <div className={Styles.buttonCard}>
                     <DetailViewClickCard setState={setClickState} state={ClickState}/>
-                    <Ai_assistForm sty={{"margin":0}}/>
+                    {isWidthLimit ? "" : <Ai_assistForm sty={{"margin":0}}/>}
                 </div>
                 {ClickState ? <E_Dis content={fetchData?.snippet?.description}/> : ""}
             </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import Style from "./SearchPage.module.css"
 import SeacrchQuery_videoCard from "../Cards/Card"
 import { AppContext } from "../../App.jsx"
@@ -156,7 +156,7 @@ export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
         style= {
             isWidthLimit ? 
             {
-                padding:"0",
+                overflow:"none",
                 gap:"3rem",...sty} : sty}>
 			{SearchData?.map(cardData =>cardType(cardData))}
 		</div>
@@ -165,8 +165,9 @@ export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
 }
 function cardType(data){
     //types
+    let Location = useLocation()
     // let CardTypes =["youtube#video","youtube#channel"]
 
-    if (data?.id.kind === "youtube#video") return <SeacrchQuery_videoCard dataObject={data} key={data?.id.videoId} Textsty={{color : "black"}}/>
+    if (data?.id.kind === "youtube#video") return <SeacrchQuery_videoCard dataObject={data} key={data?.id.videoId} Textsty={location.pathname !== "/Stream" ?{color : "black"} : {}}/>
     // if (data?.id.kind === "youtube#channel") return <SeacrchQuery_ChannelCard dataObject={data} key={data?.id.videoId} />
 }

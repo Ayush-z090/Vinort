@@ -57,10 +57,13 @@ function Recommendation(){
 }
 
 function UserSearchCards({ParentSty={}}){
-    
+    const { isWidthLimit } = useContext(AppContext);
+   
     return(
         <>
-            <div className={Styles.search_Cards_container} style={ParentSty}>
+            <div
+            style={isWidthLimit ? {height:"78vh",...ParentSty} : {...ParentSty}}
+            className={Styles.search_Cards_container} >
                 <Page_Content maxResultNum={35}  mode="search"/>
             </div>
         </>

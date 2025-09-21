@@ -4,6 +4,10 @@
     height: 100vh;
     padding-top: min(8vh,5rem);
 }
+ 
+.component_handler::-webkit-scrollbar{
+    display: none;
+}
 
 /* Ai_assisfrom  */
 .textarea{

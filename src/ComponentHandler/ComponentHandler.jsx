@@ -18,7 +18,7 @@ export default function ComponentHandler(){
         isTxtAreaActive,
         setTxtActivation,
         showRecommendationTab,
-        setReccoamendation,
+        isWidthLimit,
         IsVideoSearch,
         setSearchVideo,
         SearchQuery,
@@ -39,6 +39,10 @@ export default function ComponentHandler(){
                 location.pathname === '/Stream' ? {backdropFilter: "blur(6px) brightness(0.5)"} : 
                 location.pathname === "/Home" ? {paddingTop :"25vh"} :{ }
             }
+            style={isWidthLimit ? 
+                {
+                    overflow:"scroll"
+                } : {}}
             className={Styles.component_handler}>
                 <Navbar/>
                 <Ai_Reply/>
@@ -68,20 +72,12 @@ function Ai_Reply(){
 
     const {
         isTxtAreaActive,
-        setTxtActivation, 
+        isWidthLimit, 
         ai_Reply,
         returnHTML,
         isUSer_Note,
         
         } = useContext(AppContext);
-
-        // useEffect(()=>{
-        //     setTimeout(() => {
-        //         console.log(true)
-        //         if(isTxtAreaActive) setTxtActivation(false)
-        //     }, 10 * 1000);
-
-        // })
 
     let [overflow_condition,setOverflow] = useState(false)
 
@@ -102,7 +98,7 @@ function Ai_Reply(){
                     gap:"1rem",
                     alignItems:"start",
                     padding:"2rem 2.4rem"
-                } : isTxtAreaActive ? {top :"-2%",...ai_base_value} : {height:"5.4rem"}
+                } :  isTxtAreaActive ? {top : isWidthLimit ? "6vh" :"-2%",...ai_base_value} : {height:"5.4rem"}
             }
             className={Styles.ai_reply}>
                 {isUSer_Note ?  returnHTML.map(data=> <ELemntGEn key={data.head} head={data.head} body={data.body}/>) : ""}
