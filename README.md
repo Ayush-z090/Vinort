@@ -1,12 +1,86 @@
-# React + Vite
+# TrialDreamProduct
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fast, minimal YouTube-style app where you can search videos, open a stream view, and toggle a recommendations drawer. It focuses on speed, smooth animations, and avoiding unnecessary network calls.
 
-Currently, two official plugins are available:
+## What can you do?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Search for videos and browse results
+- Click a card to open the video in a stream view
+- Toggle a Recommendations panel based on your saved interests
+- Get a clean, readable layout with long titles neatly truncated
 
-## Expanding the ESLint configuration
+## How it works (in simple terms)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- When you search, results are cached in memory so going back and forth doesn’t re-fetch the same data.
+- Recommendations are fetched only once per session and reused when you toggle them on/off.
+- If the YouTube API limit is reached, the app automatically shows built‑in sample results so the UI stays usable.
+- Animations and micro‑interactions are handled with `framer-motion` for a smoother feel.
+
+## Quick start
+
+1) Install dependencies
+
+```bash
+npm install
+```
+
+2) Add your YouTube API key in a `.env` file at the project root
+
+```bash
+VITE_YT_API_KEY=YOUR_YOUTUBE_API_KEY
+```
+
+3) Run the app
+
+```bash
+npm run dev
+```
+
+4) Build for production (optional)
+
+```bash
+npm run build
+```
+
+## Using the app
+
+- Home page
+  - Type your prompt/search in the form and submit.
+  - Use the toggle to open/close the Recommendations panel.
+
+- Search page
+  - Shows your search results as cards.
+  - Long titles are truncated with `...` to keep cards tidy.
+
+- Stream page
+  - Opens the selected video in an embedded player.
+
+## Performance and network behavior
+
+- Search caching: results are cached per query and page size. Returning to a search reuses the cache.
+- Recommendation caching: fetched once and reused while the app is open.
+- Fallback data: when API limits occur, the UI displays sample results instead of breaking.
+
+## Small details you’ll notice
+
+- Animated, stylish 3‑dot loader for better perceived performance.
+- Hover and scale interactions on cards for a polished feel.
+- Layout adjusts for smaller screens.
+
+## Troubleshooting
+
+- I only see sample videos
+  - Your YouTube API quota may be exhausted. Add a valid key or try again later.
+
+- Search returns no results
+  - Ensure your API key is correct in `.env` and you restarted the dev server after creating/updating it.
+
+## Tech stack
+
+- React 18 + Vite
+- Framer Motion (animations)
+- CSS Modules
+
+---
+
+This project aims to be a clean starting point for video search + viewing with thoughtful UX and sensible caching out of the box.
