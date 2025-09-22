@@ -10,6 +10,7 @@ import Search from "../Page/Search.jsx"
 import Stream from "../Page/Stream.jsx"
 import { useLocation } from "react-router-dom"
 import Navbar from "../components/Navbar/Navbar.jsx"
+import { LoadingDots } from "../components/handlerComponentPart2/comp_collectio2.jsx"
 
 export default function ComponentHandler(){
     let location= useLocation()

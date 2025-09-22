@@ -1,5 +1,5 @@
 
-const URl_HOST = "http://127.0.0.1:5000/responseGenerator"
+const URl_HOST = "https://vinort-backend.onrender.com/responseGenerator"
 
 const Fetch_Data = (data) => {
         

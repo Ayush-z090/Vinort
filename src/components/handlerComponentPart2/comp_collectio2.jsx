@@ -58,6 +58,63 @@ export default function DetailViewClickCard({setState,state}){
     )
 }
 
+function LoadingDots({text="loading", color="white"}){
+    return(
+        <>
+            <div
+            style={{
+                display:"flex",
+                alignItems:"center",
+                gap:".8rem",
+                color:color,
+                fontFamily:"sans-serif",
+                textTransform:"capitalize"
+            }}>
+                <span style={{letterSpacing:".06em", opacity:.9}}>{text}</span>
+                <motion.div
+                style={{
+                    display:"flex",
+                    gap:".35rem",
+                    alignItems:"center",
+                    padding:".35rem .5rem",
+                    borderRadius:".8rem",
+                    background:"rgba(255,255,255,.08)",
+                    boxShadow:"inset 0 0 12px rgba(255,255,255,.04)",
+                    backdropFilter:"blur(2px)"
+                }}
+                initial={{opacity:.8}}
+                animate={{opacity:[.8,1,.8]}}
+                transition={{duration:2, repeat:Infinity, ease:"easeInOut"}}
+                >
+                    {[0,1,2].map((i)=>
+                        <motion.span
+                        key={i}
+                        style={{
+                            width:".5rem",
+                            height:".5rem",
+                            borderRadius:".12rem",
+                            backgroundImage:`linear-gradient(135deg, ${color}, rgba(255,255,255,.85))`,
+                            boxShadow:`0 0 10px ${typeof color === 'string' ? color : '#fff'}55`
+                        }}
+                        animate={{
+                            opacity:[.5,1,.5],
+                            y:[0,-3,0],
+                            scale:[.9,1.05,.9],
+                            boxShadow:[
+                                `0 0 6px ${typeof color === 'string' ? color : '#fff'}33`,
+                                `0 0 12px ${typeof color === 'string' ? color : '#fff'}66`,
+                                `0 0 6px ${typeof color === 'string' ? color : '#fff'}33`
+                            ]
+                        }}
+                        transition={{duration:.9, repeat:Infinity, delay:i*.18, ease:"easeInOut"}}
+                        />
+                    )}
+                </motion.div>
+            </div>
+        </>
+    )
+}
+
 function E_Dis({content}){
     
     // Function to detect and convert URLs to clickable links
@@ -130,4 +187,5 @@ function E_Dis({content}){
         </>
     )
 }
-export {E_Dis}
+export {E_Dis,LoadingDots}
+

@@ -27,7 +27,7 @@ function App() {
   // set the message to tell user about the action that has taken by the instruction of the form
   const [ai_Reply,setReply] = useState("waiting for the userPrompt")
   const [returnHTML,setHTML] = useState(triakObj.HTMl);
-  
+  if(!ai_Reply)setReply("watiting for the response")
   // Data caching for Page_Content to prevent unnecessary API calls
   const [searchDataCache, setSearchDataCache] = useState({});
   const [recommendationDataCache, setRecommendationDataCache] = useState(null);

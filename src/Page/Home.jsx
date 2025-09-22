@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Styles from "./Page.module.css";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom"
+import { LoadingDots } from "../components/handlerComponentPart2/comp_collectio2.jsx";
 
 
 export default function Home(){
@@ -36,6 +37,7 @@ function Ai_assistForm({sty={}}){
          = useContext(AppContext);
     
     const handleFormSubmit = (e) => {
+        setReply(<LoadingDots/>)
         e.preventDefault();
 
         const formData = new FormData(e.target);
