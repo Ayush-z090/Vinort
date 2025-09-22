@@ -15,14 +15,9 @@ export default function ComponentHandler(){
     let location= useLocation()
     // Get all state variables and setters from context
     const {
-        isTxtAreaActive,
-        setTxtActivation,
+        isUSer_Note,
         showRecommendationTab,
         isWidthLimit,
-        IsVideoSearch,
-        setSearchVideo,
-        SearchQuery,
-        setSearchQuery,
     } = useContext(AppContext);
     
     return(
@@ -37,13 +32,19 @@ export default function ComponentHandler(){
                 backdropFilter: "blur(6px) brightness(0.5)"
                 }:
                 location.pathname === '/Stream' ? {backdropFilter: "blur(6px) brightness(0.5)"} : 
-                location.pathname === "/Home" ? {paddingTop :"25vh"} :{ }
+                location.pathname === "/Home" ? {paddingTop :"45vh"} :{ }
             }
             style={isWidthLimit ? 
                 {
                     overflow:"scroll"
                 } : {}}
             className={Styles.component_handler}>
+                {isUSer_Note ? <motion.div
+                initial={{opacity:0}}
+                animate={{opacity:1}}
+                className={Styles.noteBG}>
+
+                </motion.div> : ""}
                 <Navbar/>
                 <Ai_Reply/>
                 <Routes>
@@ -88,6 +89,9 @@ function Ai_Reply(){
     return(
         <>
             <motion.div
+            style={isWidthLimit ?{
+                width : "95vw"
+            } : {}}
             initial={{}}
             animate={
                 isUSer_Note ? {
@@ -98,7 +102,7 @@ function Ai_Reply(){
                     gap:"1rem",
                     alignItems:"start",
                     padding:"2rem 2.4rem"
-                } :  isTxtAreaActive ? {top : isWidthLimit ? "6vh" :"-2%",...ai_base_value} : {height:"5.4rem"}
+                } :  isTxtAreaActive ? {top : isWidthLimit ? "6vh" :"-2%",...ai_base_value} : {height:"5.4rem",...ai_base_value}
             }
             className={Styles.ai_reply}>
                 {isUSer_Note ?  returnHTML.map(data=> <ELemntGEn key={data.head} head={data.head} body={data.body}/>) : ""}

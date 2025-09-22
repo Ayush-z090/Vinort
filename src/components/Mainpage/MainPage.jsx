@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './MainPage.module.css';
 import UserInterest from '../UserInterest/UserInterest';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const MainPage = () => {

@@ -23,10 +23,7 @@ function Ai_assistForm({sty={}}){
     const Navigate = useNavigate();
 
     const { 
-        isTxtAreaActive,
         setTxtActivation, 
-        IsVideoSearch, 
-        setSearchVideo,
         SelectedVideoStreamId,
         setSelectedId,
         setReply,
@@ -43,7 +40,6 @@ function Ai_assistForm({sty={}}){
 
         const formData = new FormData(e.target);
         const userInput = formData.get('UserPrompt');
-        console.log('User input:', userInput);
         Fetch_Data({
             userPromt : userInput,
             videoId : SelectedVideoStreamId ? SelectedVideoStreamId : null
@@ -51,7 +47,6 @@ function Ai_assistForm({sty={}}){
         .then(res=>{
 
             const MainData = res?.DataReceive;
-            console.log(MainData)
             try{
 
             setReply(MainData?.message)
@@ -80,7 +75,6 @@ function Ai_assistForm({sty={}}){
                     return;
                 }
             }
-            console.log(res)
         }catch(error){
             setReply("cant connect ai at the momment")
             console.log(`${res?.message} \n ${res?.errorType}`)
@@ -99,7 +93,7 @@ function Ai_assistForm({sty={}}){
             className={Styles.form}
             onSubmit={ handleFormSubmit}>
                 <motion.textarea
-                onClick={()=> setTxtActivation(true)}
+                onClick={()=> !isUSer_Note ? setTxtActivation(true) : ""}
                 onKeyDown={(e)=>{
                     if(e.key === "Enter" && !e.shiftKey){
                         e.preventDefault();

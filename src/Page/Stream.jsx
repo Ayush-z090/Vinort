@@ -8,13 +8,16 @@ import { Ai_assistForm } from "./Home.jsx";
 
 
 export default function Stream(){
-    const { isWidthLimit } = useContext(AppContext);
+    const { isWidthLimit,isUSer_Note } = useContext(AppContext);
 
     return(
         <>
             <VideoDisplay/>
-            {isWidthLimit ? <div className={Styles.bottom_prompt}>
-                <Ai_assistForm/>
+            {isWidthLimit ? 
+            <div
+            style={isUSer_Note ? {zIndex:1} : {}}
+            className={Styles.bottom_prompt}>
+                <Ai_assistForm />
             </div> : ""}
         </>
     )
@@ -117,7 +120,6 @@ function Vidfunction(){
             // use cache if available for current SelectedVideoStreamId
             const cached = videoDetailCache.get(SelectedVideoStreamId);
             if(cached){
-                console.log("catch")
                 setData(cached);
                 return;
             }
@@ -150,7 +152,7 @@ function Vidfunction(){
             className={Styles.FuncionButtons}>
                 <div className={Styles.buttonCard}>
                     <DetailViewClickCard setState={setClickState} state={ClickState}/>
-                    {isWidthLimit ? "" : <Ai_assistForm sty={{"margin":0}}/>}
+                    {isWidthLimit ? "" : <Ai_assistForm sty={{"margin":0,"position" : "relative",zIndex:2}}/>}
                 </div>
                 {ClickState ? <E_Dis content={fetchData?.snippet?.description}/> : ""}
             </div>

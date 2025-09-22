@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import Styles from "./Navbar.module.css";
 import { AppContext } from "../../App";
 import FullLogo from "../../assets/FullLogo.jpg";
-import { Ai_Reply } from "../../ComponentHandler/ComponentHandler";
 
 export default function Navbar(){
     const { isTxtAreaActive, setTxtActivation ,isUSer_Note, setNote,} = useContext(AppContext);
@@ -34,9 +33,6 @@ export default function Navbar(){
                 {/* <button className={Styles.navBtn}>Explore</button> */}
             </div>
         </nav>
-        {/* <div className={`${Styles.replyDock} ${isTxtAreaActive ? Styles.replyVisible : ""}`}>
-            <Ai_Reply/>
-        </div> */}
     </>;
 }
 

@@ -1,8 +1,5 @@
 import { motion } from "framer-motion"
 import Styles from "./comp_collection2.module.css"
-import { getTimeAgo } from "../Cards/Card"
-import { useContext, useEffect, useState } from "react"
-import { AppContext } from "../../App"
 
 let SVGInfoIcon = ()=>{               
 return (

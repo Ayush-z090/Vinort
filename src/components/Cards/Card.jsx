@@ -58,7 +58,6 @@ export default function SeacrchQuery_videoCard({dataObject,Textsty={}}){
         onClick={
             ()=>
                 {
-                    console.log("clciked")
                     setSelectedId(dataObject?.id.videoId);
                     setReccoamendation(false);
                     Navigate("/Stream")

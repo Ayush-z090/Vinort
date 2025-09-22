@@ -96,7 +96,14 @@ const dummySearchData = [
 
 
 export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
-	const { SearchQuery ,isWidthLimit} = useContext(AppContext);
+	const { 
+		SearchQuery,
+		isWidthLimit,
+		searchDataCache,
+		setSearchDataCache,
+		recommendationDataCache,
+		setRecommendationDataCache
+	} = useContext(AppContext);
 
 	let userCategories;
 	try {
@@ -128,17 +135,43 @@ export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
 				setData([])
 				return;
 			}
+
+			// Check cache first
+			const cacheKey = `${mode}_${query}_${maxResultNum}`;
+			
+			// For recommendation mode, check if we already have cached data
+			if (mode === "local" && recommendationDataCache) {
+				setData(recommendationDataCache);
+				return;
+			}
+			
+			// For search mode, check if we have cached data for this query
+			if (mode === "search" && searchDataCache[cacheKey]) {
+				setData(searchDataCache[cacheKey]);
+				return;
+			}
+
 			let API_URl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=rating&type=video&maxResults=${maxResultNum}&q=${encodeURIComponent(query)}&key=${API_KEY}`
 			let FetchData = await fetch(API_URl)
 			if(!FetchData.ok) {
 				setData(dummySearchData)
 				throw new Error("most likely yt api limit reached")};
-			console.log("enter")
 			let DATA = await FetchData.json()
 			if (!DATA.items && (DATA?.error?.code === 403)){
 				setData(dummySearchData)
 				throw new Error("yt api limit reach")
 			}
+			
+			// Cache the data
+			if (mode === "local") {
+				setRecommendationDataCache(DATA.items);
+			} else if (mode === "search") {
+				setSearchDataCache(prev => ({
+					...prev,
+					[cacheKey]: DATA.items
+				}));
+			}
+			
 			setData(DATA.items)
 		}catch(err){
 			console.log(`unable to reload \nError: ${err.message}`)

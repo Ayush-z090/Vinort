@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import {  useContext } from "react"
 import { motion } from "framer-motion"
 import Styles from "./Comp_Collection.module.css"
 import { Page_Content } from "../SearchPage/SearchPage"
