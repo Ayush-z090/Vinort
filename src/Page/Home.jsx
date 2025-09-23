@@ -1,6 +1,6 @@
 // import { Ai_assistForm } from "../ComponentHandler/ComponentHandler";
 import { useContext } from "react";
-import { AppContext } from "../App";
+import { AppContext, triakObj } from "../App";
 import ToogleButton from "../components/handlerComponentsPart1/Comp_Collection";
 import { Fetch_Data } from "../JS_Script/Fetch_Script.js";
 import { motion } from "framer-motion";
@@ -31,13 +31,15 @@ function Ai_assistForm({sty={}}){
         setHTML,
         isUSer_Note, setNote,
         setSearchQuery,
-        isWidthLimit
+        isWidthLimit,
+        ai_Reply
 
     }
          = useContext(AppContext);
     
     const handleFormSubmit = (e) => {
         setReply(<LoadingDots/>)
+        isUSer_Note ? setNote(false) : ""
         e.preventDefault();
 
         const formData = new FormData(e.target);
@@ -51,10 +53,16 @@ function Ai_assistForm({sty={}}){
             const MainData = res?.DataReceive;
             try{
 
-            setReply(MainData?.message)
+                MainData.prompt_Type !== "help" ? setReply(MainData?.message)  : setReply(ai_Reply)
 
             switch(MainData.prompt_Type){
                 // will handle link path 
+                case "help" : {
+                    setTxtActivation(false)
+                    triakObj.unshift({head:"Ai_message",body:[MainData?.message]})
+                    setHTML(triakObj);
+                    setNote(true)
+                }
                 case "link" : {
                     setSelectedId(MainData.passed_URL_ID);
                     Navigate("/Stream")
@@ -73,6 +81,7 @@ function Ai_assistForm({sty={}}){
                     if(Location.pathname === "/Home"){
                     Navigate("/Search")    
                     }
+                    localStorage.setItem("query",userInput)
                     setSearchQuery(userInput);
                     return;
                 }
@@ -107,10 +116,13 @@ function Ai_assistForm({sty={}}){
                      height:"4rem"
                     }
                 }
+                onFocus={()=>ai_Reply ? setReply( ": type ur Query") :""}
+
                 className={Styles.textarea}
                 placeholder="type here"
                 id="userQuery"
-                name="UserPrompt"></motion.textarea>
+                name="UserPrompt">
+                </motion.textarea>
                 <button type="submit">search</button>
             </motion.form>
         </>

@@ -136,6 +136,7 @@ const UserInterest = () => {
 
     // using localStorage to implement backend functinality as a substitute
     localStorage.setItem("UserChoosenCategoires",JSON.stringify(selectedNames))
+    localStorage.setItem("query","")
     navigate("/Home")
   };
 

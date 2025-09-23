@@ -8,8 +8,60 @@ import VidBg from "./assets/BG.mp4"
 // Create context for sharing state across components
 export const AppContext = createContext();
 
-let triakObj ={'prompt_Type': 'VideoDetail', 'passed_URL_ID': null, 'Current_videoId': 'bDzTYIi7Is4', 'message': null, 'vid_Related_res': null, 'HTMl': [{'head': 'Overview of the Transcript', 'body': ['The primary business discussed is about advertising implementation for a global market.', 'The task involves translating the original creative idea into 30 or 40 languages.', 'The company, Arthur, is part of WPP, which contains multiple large global creative agencies.']}, {'head': 'Challenges and Requirements', 'body': ['The production storage faces massive pressure due to the need to hold numerous versions of materials like TV commercials.', 'The company needs an efficient way of uploading and archiving data.', 'They require a system that allows for quick retrieval of material and the ability to retrieve specific parts of the data.', 'The current storage is about five petabytes, emphasizing the need for a responsive and efficient archiving system.']}, {'head': 'Solution and Implementation', 'body': ['The company found a disk-based archiving system to be the most cost-effective and quick solution.', 'The chosen system provides a distributed single namespace for storage, allowing for access to a single storage pool across multiple data centers.', 'The company recently purchased additional storage, totaling 1.7 petabytes, and is in the process of installation.', 'The system has been reliable, with no reported issues, and the company providing the system has been responsive in providing support for installation and configuration.']}]}
+let triakObj =[
+  {
+    'head': 'Overview of the App',
+    'body': [
+      'This web app allows you to search for YouTube videos or get guidance on how the app works using a single prompt.',
+      'The app integrates AI to make interactions simple and fast.',
+      'It is designed to be responsive and user-friendly, working smoothly across devices.'
+    ]
+  },
+  {
+    'head': 'How to Search Videos',
+    'body': [
+      'Type your query into the input field (e.g., "JavaScript tutorial").',
+      'The AI will process your prompt and fetch relevant YouTube videos.',
+      'Results are displayed with video titles, thumbnails, and links so you can quickly access content.'
+    ]
+  },
+  {
+    'head': 'Getting Help',
+    'body': [
+      'If you type "help" into the prompt, the app will show this guide.',
+      'The help system explains available features and usage examples.',
+      'It ensures new users can easily understand and navigate the platform.'
+    ]
+  },
+  {
+    'head': 'Features and Benefits',
+    'body': [
+      'Single prompt for both video search and app help — no need for multiple menus.',
+      'Fast and optimized AI response time for smooth experience.',
+      'Clean and minimal design for distraction-free video discovery.'
+    ]
+  },
+  {
+    'head': 'Future Improvements',
+    'body': [
+      'Planned refinements to improve AI response accuracy.',
+      'Better personalization based on viewing history.',
+      'Adding more interactive features like playlists and recommendations.'
+    ]
+  }
+]
 
+let defaultHTML =[{
+  'head': 'Interacting with Videos',
+  'body': [
+    'Click on a video thumbnail to start playing it directly in the app.',
+    'You can pause, play, skip, or adjust the volume using the built-in video controls.',
+    'Switch between different related videos shown in the recommendations section.',
+    'View additional video details such as title, description, and channel information below the player.',
+    'Optionally expand to full-screen mode for an immersive experience.',
+    'Use the AI prompt box while a video is playing to ask for summaries, transcripts, or related content without leaving the player.'
+  ]
+}]
 
 function App() {
   // All hook variables moved from ComponentHandler
@@ -20,13 +72,13 @@ function App() {
   // will track if user is asking about notes realted to video
   const [isUSer_Note, setNote] = useState(false); // change it to set VideoStream viewPort
   // will track the userSearch value..
-  const [SearchQuery, setSearchQuery] = useState("after effects");
+  const [SearchQuery, setSearchQuery] = useState(localStorage.getItem("query") ? "" : "");
   const [SelectedVideoStreamId , setSelectedId] = useState(undefined);
 
   const [isWidthLimit,setLimit] = useState(false)
   // set the message to tell user about the action that has taken by the instruction of the form
   const [ai_Reply,setReply] = useState("waiting for the userPrompt")
-  const [returnHTML,setHTML] = useState(triakObj.HTMl);
+  const [returnHTML,setHTML] = useState(defaultHTML);
   if(!ai_Reply)setReply("watiting for the response")
   // Data caching for Page_Content to prevent unnecessary API calls
   const [searchDataCache, setSearchDataCache] = useState({});
@@ -85,3 +137,4 @@ function App() {
 }
 
 export default App;
+export {triakObj,defaultHTML}

@@ -18,13 +18,17 @@
 }
 
 .logo{
-    padding-left: 1rem;
+    height: 3rem;
+    width: 3rem;
     font-weight: 700;
     letter-spacing: .5px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .logoImg{
     height: 100%;
+    width: 100%;
     max-height: 48px;
     border-radius: .8rem;
 }

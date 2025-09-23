@@ -96,6 +96,7 @@ const dummySearchData = [
 
 
 export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
+
 	const { 
 		SearchQuery,
 		isWidthLimit,
@@ -118,6 +119,7 @@ export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
 	let query;
 	switch (mode) {
 		case "search":
+            console.log(SearchQuery)
 			query = SearchQuery || "";
 			break;
 		case "local":

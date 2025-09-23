@@ -33,7 +33,7 @@ export default function ComponentHandler(){
                 backdropFilter: "blur(6px) brightness(0.5)"
                 }:
                 location.pathname === '/Stream' ? {backdropFilter: "blur(6px) brightness(0.5)"} : 
-                location.pathname === "/Home" ? {paddingTop :"45vh"} :{ }
+                location.pathname === "/Home" ? {paddingTop :"35vh"} :{ }
             }
             style={isWidthLimit ? 
                 {
@@ -98,12 +98,12 @@ function Ai_Reply(){
                 isUSer_Note ? {
                     top: "-14rem",
                     transform: "translate(-50%, 50%)",
-                    height: "69vh",
+                    height: isWidthLimit ? "65dvh" : "69dvh",
                     justifyContent: "start",
                     gap:"1rem",
                     alignItems:"start",
                     padding:"2rem 2.4rem"
-                } :  isTxtAreaActive ? {top : isWidthLimit ? "6vh" :"-2%",...ai_base_value} : {height:"5.4rem",...ai_base_value}
+                } :  isTxtAreaActive ? {top : isWidthLimit ? "6dvh" :"-2%",...ai_base_value} : {height:"5.4rem",...ai_base_value}
             }
             className={Styles.ai_reply}>
                 {isUSer_Note ?  returnHTML.map(data=> <ELemntGEn key={data.head} head={data.head} body={data.body}/>) : ""}
