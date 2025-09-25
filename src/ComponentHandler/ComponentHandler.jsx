@@ -96,7 +96,7 @@ function Ai_Reply(){
             initial={{}}
             animate={
                 isUSer_Note ? {
-                    top: "-14rem",
+                    top: "-24%",
                     transform: "translate(-50%, 50%)",
                     height: isWidthLimit ? "65dvh" : "69dvh",
                     justifyContent: "start",

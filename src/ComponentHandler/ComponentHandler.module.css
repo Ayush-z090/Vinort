@@ -67,7 +67,7 @@
     position: fixed;
     padding:2rem 1rem 1rem 1rem;
     box-sizing: border-box;
-    top: -23%;
+    top: -26%;
     left: 50%;
     transform: translateX(-50%);
     width: min(800px,65vw);
