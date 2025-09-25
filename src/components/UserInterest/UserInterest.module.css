@@ -5,7 +5,7 @@
   box-shadow: 0 0px 7px 0 var(--color-text-02-);
   max-width: 800px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 90dvh;
   overflow-y: auto;
   color: var(--color-text-);
   background: linear-gradient(#ffffffaf, rgba(0, 0, 0, 0.438) 90%);

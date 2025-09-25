@@ -3,7 +3,7 @@
     top: .2rem;
     left: 50%;
     transform: translateX(-50%);
-    height: 7vh;
+    height: 7dvh;
     width: min(1100px, 95%);
     padding: 0 1rem;
     border-radius: 1rem;
@@ -75,7 +75,7 @@
 
 .replyVisible{
     transform: translate(-50%, 0);
-    top:calc(.2rem + 7vh);
+    top:calc(.2rem + 7dvh);
     opacity: 1;
 }
 

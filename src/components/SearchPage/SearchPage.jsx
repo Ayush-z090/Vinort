@@ -120,7 +120,7 @@ export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
 	switch (mode) {
 		case "search":
             console.log(SearchQuery)
-			query = SearchQuery || "";
+			query = localStorage.getItem("query") || SearchQuery;
 			break;
 		case "local":
 			query = userCategories.length ? userCategories[seachQueryRandom] : "";
@@ -133,6 +133,7 @@ export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
 
 	let FETCH_data = async () => {
 		try{
+            console.log(query)
 			if (!query) {
 				setData([])
 				return;

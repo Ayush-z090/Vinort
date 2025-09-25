@@ -2,7 +2,7 @@
     box-sizing: border-box;
     position: relative;
     height: 100dvh;
-    padding-top: min(8vh,5rem);
+    padding-top: min(8dvh,5rem);
 }
  
 .component_handler::-webkit-scrollbar{
@@ -112,7 +112,7 @@
 
 .videoPart{
     width: 65%;
-    height: 96vh;
+    height: 96dvh;
     overflow-y: auto;
 }
 .videoPart::-webkit-scrollbar{
@@ -120,7 +120,7 @@
 }
 
 .VideosFunctions{
-    min-height: 12vh;
+    min-height: 12dvh;
     padding: 1rem;
 }
 

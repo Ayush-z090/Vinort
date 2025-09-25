@@ -8,7 +8,13 @@ import VidBg from "./assets/BG.mp4"
 // Create context for sharing state across components
 export const AppContext = createContext();
 
-let triakObj =[
+let triakObj = [
+  {
+    'head': 'Important Note',
+    'body': [
+      'This is a demo project testing prompt-type search apps. Since prompts can be infinite, AI may not always respond reliably—we’re working on better AI-driven UI.'
+    ]
+  },
   {
     'head': 'Overview of the App',
     'body': [
@@ -49,19 +55,20 @@ let triakObj =[
       'Adding more interactive features like playlists and recommendations.'
     ]
   }
-]
+];
 
-let defaultHTML =[{
+let defaultHTML = [{
   'head': 'Interacting with Videos',
   'body': [
-    'Click on a video thumbnail to start playing it directly in the app.',
-    'You can pause, play, skip, or adjust the volume using the built-in video controls.',
-    'Switch between different related videos shown in the recommendations section.',
-    'View additional video details such as title, description, and channel information below the player.',
-    'Optionally expand to full-screen mode for an immersive experience.',
-    'Use the AI prompt box while a video is playing to ask for summaries, transcripts, or related content without leaving the player.'
+    'Click on any video thumbnail to start playing it directly in the app.',
+    'Use the built-in video controls to pause, play, skip, or adjust the volume.',
+    'Explore related videos and easily switch between them in the recommendations section.',
+    'View detailed information about the video, including title, description, and channel details below the player.',
+    'Expand the player to full-screen mode for an immersive viewing experience.',
+    'Engage with the AI prompt box while a video is playing to request summaries or related content without leaving the player.',
+    'Please note: Transcript-based conversation is currently unavailable due to server restrictions. This feature will not work at the moment. We apologize for the inconvenience.'
   ]
-}]
+}];
 
 function App() {
   // All hook variables moved from ComponentHandler

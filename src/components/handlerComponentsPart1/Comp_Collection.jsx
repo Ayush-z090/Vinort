@@ -62,7 +62,7 @@ function UserSearchCards({ParentSty={}}){
     return(
         <>
             <div
-            style={isWidthLimit ? {height:"78vh",...ParentSty} : {...ParentSty}}
+            style={isWidthLimit ? {height:"78dvh",...ParentSty} : {...ParentSty}}
             className={Styles.search_Cards_container} >
                 <Page_Content maxResultNum={35}  mode="search"/>
             </div>
@@ -73,6 +73,8 @@ function UserSearchCards({ParentSty={}}){
 
 function VideoStreamer({sty={}}){
     const { SelectedVideoStreamId } = useContext(AppContext);
+
+    const vid_ID = SelectedVideoStreamId || localStorage.getItem("c_ID") 
 
     return(
         <>
@@ -88,7 +90,7 @@ function VideoStreamer({sty={}}){
                         left:0,
                         objectFit:"cover"
                     }}
-                    src={`https://www.youtube.com/embed/${SelectedVideoStreamId}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    src={`https://www.youtube.com/embed/${vid_ID}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
 
         </>

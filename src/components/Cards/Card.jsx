@@ -59,6 +59,7 @@ export default function SeacrchQuery_videoCard({dataObject,Textsty={}}){
             ()=>
                 {
                     setSelectedId(dataObject?.id.videoId);
+                    localStorage.setItem("c_ID",dataObject?.id.videoId)
                     setReccoamendation(false);
                     Navigate("/Stream")
                 }

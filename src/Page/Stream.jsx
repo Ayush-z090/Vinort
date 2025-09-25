@@ -9,6 +9,7 @@ import { Ai_assistForm } from "./Home.jsx";
 
 export default function Stream(){
     const { isWidthLimit,isUSer_Note } = useContext(AppContext);
+    
 
     return(
         <>
@@ -42,7 +43,7 @@ function VideoDisplay(){
                 style={isWidthLimit ?
                     {
                         width:"100%",
-                        height:"40vh",
+                        height:"40dvh",
                         overflow:"none"
 
                     }: {}}
@@ -66,7 +67,7 @@ function VideoDisplay(){
                             width: "100%",
                             padding: "1rem clamp(1rem, 7vw, 10rem)",
                             gap: "3rem",
-                            height:"84vh"
+                            height:"84dvh"
                         }
                     }
                 />
@@ -89,7 +90,7 @@ function VideoDisplay(){
                 sty={
                         {
                             width: "100%",
-                            padding: "1rem clamp(1rem, 7vw, 10rem) 5vh clamp(1rem, 7vw, 10rem)",
+                            padding: "1rem clamp(1rem, 7vw, 10rem) 5dvh clamp(1rem, 7vw, 10rem)",
                             gap: "3rem",
                             overflow:"initial"
                         }

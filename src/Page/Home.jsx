@@ -59,9 +59,24 @@ function Ai_assistForm({sty={}}){
                 // will handle link path 
                 case "help" : {
                     setTxtActivation(false)
-                    triakObj.unshift({head:"Ai_message",body:[MainData?.message]})
+
+                    
+                    const aiIndex = triakObj.findIndex(item => item.head === "Ai_message");
+
+                    if (aiIndex !== -1) {
+                    // If "Ai_message" object exists, push message into its body array
+                    triakObj[aiIndex].body = [MainData?.message];
+                    } else {
+                    // If not found, create a new object at the beginning
+                    triakObj.unshift({
+                        head: "Ai_message",
+                        body: [MainData?.message]
+                    });
+                    }
+
                     setHTML(triakObj);
                     setNote(true)
+                    return;
                 }
                 case "link" : {
                     setSelectedId(MainData.passed_URL_ID);

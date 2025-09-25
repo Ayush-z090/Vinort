@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './UserInterest.module.css';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../App';
 
 // Programming-related icon components
 const ProgrammingIcon = () => (
@@ -100,7 +101,6 @@ const UserInterest = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const navigate = useNavigate()
 
-
   const educationCategories = [
     { id: 1, name: 'Programming', icon: <ProgrammingIcon /> },
     { id: 2, name: 'Design', icon: <DesignIcon /> },
@@ -136,6 +136,7 @@ const UserInterest = () => {
 
     // using localStorage to implement backend functinality as a substitute
     localStorage.setItem("UserChoosenCategoires",JSON.stringify(selectedNames))
+    localStorage.setItem("c_ID","")
     localStorage.setItem("query","")
     navigate("/Home")
   };
