@@ -14,17 +14,4 @@ const Fetch_Data = (data) => {
         });
 }
 
-JSON.parse(localStorage.getItem("calls")) ?"" : localStorage.setItem("calls",true) 
-
-
-if(localStorage.getItem("calls")) {
-    localStorage.setItem("calls",false)
-    Fetch_Data(Cloud_URL_HOST)
-  .then(rj => alert("Server is awake"))
-  .catch(err => {
-    console.error("Server is not responding", err);
-    throw new Error("Server wake-up failed"); // explicitly throw error
-  });
-}
-
 export {Fetch_Data}
