@@ -1,5 +1,5 @@
 import {  useContext } from "react"
-import { motion } from "framer-motion"
+import { color, motion } from "framer-motion"
 import Styles from "./Comp_Collection.module.css"
 import { Page_Content } from "../SearchPage/SearchPage"
 import { AppContext } from "../../App.jsx"
@@ -50,7 +50,7 @@ function Recommendation(){
             <motion.div
             animate={showRecommendationTab ? {bottom:0} : {}}
             className={Styles.RecommendationContainer}>
-                <Page_Content mode="local" />
+                <Page_Content mode="local" sty2={{color:"black"}} />
             </motion.div>
         
     )
@@ -64,7 +64,7 @@ function UserSearchCards({ParentSty={}}){
             <div
             style={isWidthLimit ? {height:"78dvh",...ParentSty} : {...ParentSty}}
             className={Styles.search_Cards_container} >
-                <Page_Content maxResultNum={35}  mode="search"/>
+                <Page_Content maxResultNum={35}  mode="search" sty2={{color:"white"}}/>
             </div>
         </>
     )

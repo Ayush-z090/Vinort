@@ -95,7 +95,7 @@ const dummySearchData = [
 
 
 
-export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
+export function Page_Content({maxResultNum=15,sty,mode="auto",sty2}){
 
 	const { 
 		SearchQuery,
@@ -119,7 +119,6 @@ export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
 	let query;
 	switch (mode) {
 		case "search":
-            console.log(SearchQuery)
 			query = localStorage.getItem("query") || SearchQuery;
 			break;
 		case "local":
@@ -133,7 +132,6 @@ export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
 
 	let FETCH_data = async () => {
 		try{
-            console.log(query)
 			if (!query) {
 				setData([])
 				return;
@@ -194,16 +192,17 @@ export function Page_Content({maxResultNum=15,sty={},mode="auto"}){
             {
                 overflow:"none",
                 gap:"3rem",...sty} : sty}>
-			{SearchData?.map(cardData =>cardType(cardData))}
+			{SearchData?.map(cardData =>cardType(cardData,sty2))}
 		</div>
 		</>
 	)
 }
-function cardType(data){
+function cardType(data,sty2){
     //types
     let Location = useLocation()
     // let CardTypes =["youtube#video","youtube#channel"]
+    
 
-    if (data?.id.kind === "youtube#video") return <SeacrchQuery_videoCard dataObject={data} key={data?.id.videoId} Textsty={location.pathname !== "/Stream" ?{color : "black"} : {}}/>
+    if (data?.id.kind === "youtube#video") return <SeacrchQuery_videoCard dataObject={data} key={data?.id.videoId} Textsty={sty2}/>
     // if (data?.id.kind === "youtube#channel") return <SeacrchQuery_ChannelCard dataObject={data} key={data?.id.videoId} />
 }

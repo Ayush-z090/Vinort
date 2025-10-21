@@ -70,6 +70,7 @@ function VideoDisplay(){
                             height:"84dvh"
                         }
                     }
+                    sty2={ {color:"white"}}
                 />
 
                 </div>}
